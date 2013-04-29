@@ -55,7 +55,7 @@ client.addListener('message', function (from, to, message) {
       }
 
       if(message.search('fakeimg') !== -1) {
-        client.say(to, 'Tiens connard : http://fakeimg.pl');
+        client.say(to, 'Tiens connard : http://fakeimg.pl && http://placekitten.com && http://placedog.com && http://placesheen.com');
       }
 
       if(message.search('char') !== -1) {
@@ -73,6 +73,10 @@ client.addListener('message', function (from, to, message) {
 
       if(message.search('enculé') !== -1) {
         client.say(to, 'toi, enculé.');
+      }
+
+      if(message.search('enculer') !== -1) {
+        client.say(to, 'J\'t\'emmerde');
       }
 
       if(message.search('batard') !== -1) {
