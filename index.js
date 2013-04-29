@@ -24,6 +24,12 @@ client.addListener('message', function (from, to, message) {
         client.say(to, 'http://caniuse.com/#search=' + param);
       }
 
+      if(message.search('img') !== -1) {
+        var match = message.match(new RegExp(botName + ": img (.*)"));
+        var param = match[1];
+        client.say(to, 'http://mebe.co/' + param + '.jpeg');
+      }
+
       if(message.search('google') !== -1) {
         var match = message.match(new RegExp(botName + ": google (.*)"));
         var param = match[1];
