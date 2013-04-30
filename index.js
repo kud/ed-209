@@ -89,6 +89,8 @@ client.addListener('message', function (from, to, message) {
 
         if(typeof app[cmd] !== 'undefined') {
           client.say(to, app[cmd].apply(app, params));
+        } else {
+          client.say(to, 'Unknown cmd. :]');
         }
       }
     }
