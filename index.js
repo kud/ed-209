@@ -3,11 +3,11 @@ var _irc = require('irc'),
     _ = require('lodash');
 
 // Config
-var botName = 'bbbot',
+var botName = 'bobot',
     channels = [
       '##ability',
-      //'#francejs'
-      '#bbbot'
+      '#francejs',
+      '#bobot'
     ],
     server = 'irc.freenode.net';
 
