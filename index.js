@@ -6,7 +6,7 @@ var botName = 'bbbot';
 var client = new _irc.Client('irc.freenode.net', botName, {
     channels: ['##ability', '#francejs'],
     floodProtection: true,
-    floodProtectionDelay: 1000
+    floodProtectionDelay: 500
 });
 
 client.addListener('message', function (from, to, message) {
@@ -14,7 +14,15 @@ client.addListener('message', function (from, to, message) {
 
     // We're talking to the bot
     if(message.search(botName) !== -1) {
-      if(message.search('list') !== -1) {
+      var catchedMessage = message.match(new RegExp(botName + ": (.*)"));
+
+      if(catchedMessage && catchedMessage[1]) {
+        var plainParams = catchedMessage[1],
+            params = plainParams.split(' '),
+            cmd = params[1];
+      }
+
+      /*if(message.search('list') !== -1) {
         client.say(to, "['caniuse', 'google', 'mdn', 'conj', 'gh', 'repo', 'fakeimg', 'svg', 'char']");
       }
 
@@ -91,7 +99,7 @@ client.addListener('message', function (from, to, message) {
 
       if(message.search('fais pas la gueule') !== -1) {
         client.say(to, 'Je ne fais pas la gueule.');
-      }
+      }*/
     }
 });
 
