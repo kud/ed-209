@@ -1,14 +1,80 @@
+// Import
 var _irc = require('irc'),
     _ = require('lodash');
 
-var botName = 'bbbot';
+// Config
+var botName = 'bbbot',
+    channels = [
+      '##ability',
+      //'#francejs'
+      '#bbbot'
+    ],
+    server = 'irc.freenode.net';
 
-var client = new _irc.Client('irc.freenode.net', botName, {
-    channels: ['##ability', '#francejs'],
+// IRC client
+var client = new _irc.Client(server, botName, {
+    channels: channels,
     floodProtection: true,
     floodProtectionDelay: 500
 });
 
+var app = {
+  list: function() {
+    var keys = [];
+    for(var key in this){
+      keys.push(key);
+    }
+
+    return 'List: .' + keys.join(' .');
+  },
+
+  caniuse: function(param) {
+    return 'http://caniuse.com/#search=' + param;
+  },
+
+  img: function(param) {
+    return 'http://mebe.co/' + param + '.jpeg';
+  },
+
+  google: function(param) {
+    return 'https://www.google.com/search?q=' + param
+  },
+
+  mdn: function(param) {
+    return 'https://developer.mozilla.org/en-US/search?q=' + param + '&sitesearch=developer.mozilla.org';
+  },
+
+  conj: function(param) {
+    return 'http://leconjugueur.lefigaro.fr/conjugaison/verbe/' + param + '.html';
+  },
+
+  gh: function(param) {
+    return 'https://github.com/search?q=' + param;
+  },
+
+  repo: function(param) {
+    return 'https://github.com/' + param;
+  },
+
+  fakeimg: function() {
+    return 'Tiens connard : http://fakeimg.pl && http://placekitten.com && http://placedog.com && http://placesheen.com';
+  },
+
+  unicode: function() {
+    return 'Ha tu veux de l\'unicode, bah tiens, gros con : http://copypastecharacter.com';
+  },
+
+  svg: function() {
+    var list = [
+          'http://iconmonstr.com/',
+          'http://thenounproject.com/',
+          'http://icomoon.io/app/'
+        ];
+    return list.join('\n');
+  }
+}
+
+// Listeners
 client.addListener('message', function (from, to, message) {
     console.log(from + ' => ' + to + ': ' + message);
 
@@ -19,87 +85,12 @@ client.addListener('message', function (from, to, message) {
       if(catchedMessage && catchedMessage[1]) {
         var plainParams = catchedMessage[1],
             params = plainParams.split(' '),
-            cmd = params[1];
-      }
+            cmd = params.shift();
 
-      /*if(message.search('list') !== -1) {
-        client.say(to, "['caniuse', 'google', 'mdn', 'conj', 'gh', 'repo', 'fakeimg', 'svg', 'char']");
+        if(typeof app[cmd] !== 'undefined') {
+          client.say(to, app[cmd].apply(app, params));
+        }
       }
-
-      if(message.search('caniuse') !== -1) {
-        var match = message.match(new RegExp(botName + ": caniuse (.*)"));
-        var param = match[1];
-        client.say(to, 'http://caniuse.com/#search=' + param);
-      }
-
-      if(message.search('img') !== -1) {
-        var match = message.match(new RegExp(botName + ": img (.*)"));
-        var param = match[1];
-        client.say(to, 'http://mebe.co/' + param + '.jpeg');
-      }
-
-      if(message.search('google') !== -1) {
-        var match = message.match(new RegExp(botName + ": google (.*)"));
-        var param = match[1];
-        client.say(to, 'https://www.google.com/search?q=' + param);
-      }
-
-      if(message.search('mdn') !== -1) {
-        var match = message.match(new RegExp(botName + ": mdn (.*)"));
-        var param = match[1];
-        client.say(to, 'https://developer.mozilla.org/en-US/search?q=' + param + '&sitesearch=developer.mozilla.org');
-      }
-
-      if(message.search('conj') !== -1) {
-        var match = message.match(new RegExp(botName + ": conj (.*)"));
-        var param = match[1];
-        client.say(to, 'http://leconjugueur.lefigaro.fr/conjugaison/verbe/' + param + '.html');
-      }
-
-      if(message.search('gh') !== -1) {
-        var match = message.match(new RegExp(botName + ": gh (.*)"));
-        var param = match[1];
-        client.say(to, 'https://github.com/search?q=' + param);
-      }
-
-      if(message.search('repo') !== -1) {
-        var match = message.match(new RegExp(botName + ": repo (.*)"));
-        var param = match[1];
-        client.say(to, 'https://github.com/' + param);
-      }
-
-      if(message.search('fakeimg') !== -1) {
-        client.say(to, 'Tiens connard : http://fakeimg.pl && http://placekitten.com && http://placedog.com && http://placesheen.com');
-      }
-
-      if(message.search('char') !== -1) {
-        client.say(to, 'Ha tu veux de l\'unicode, bah tiens, gros con : http://copypastecharacter.com');
-      }
-
-      if(message.search('svg') !== -1) {
-        var list = [
-          'http://iconmonstr.com/',
-          'http://thenounproject.com/',
-          'http://icomoon.io/app/'
-        ];
-        client.say(to, list.join('\n'));
-      }
-
-      if(message.search('enculé') !== -1) {
-        client.say(to, 'toi, enculé.');
-      }
-
-      if(message.search('enculer') !== -1) {
-        client.say(to, 'J\'t\'emmerde');
-      }
-
-      if(message.search('batard') !== -1) {
-        client.say(to, 'wowow, on se calme.');
-      }
-
-      if(message.search('fais pas la gueule') !== -1) {
-        client.say(to, 'Je ne fais pas la gueule.');
-      }*/
     }
 });
 
