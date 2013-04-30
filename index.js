@@ -79,8 +79,15 @@ var app = {
     return list.join('\n');
   },
 
-  forkme: function() {
+  forkyou: function() {
     return 'Please, please, please https://github.com/kud/ed-209';
+  },
+
+  roulette: function() {
+    var trigger = Math.floor(Math.random()*6 + 1),
+        user = Math.floor(Math.random()*6 + 1);
+
+    return trigger === user ? 'BANG!' : 'Click!';
   }
 }
 
