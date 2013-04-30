@@ -71,6 +71,10 @@ var app = {
           'http://icomoon.io/app/'
         ];
     return list.join('\n');
+  },
+
+  forkme: function() {
+    return 'Please, please, please https://github.com/kud/ed-209';
   }
 }
 
