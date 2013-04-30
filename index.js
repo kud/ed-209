@@ -25,31 +25,43 @@ var app = {
       keys.push(key);
     }
 
+    // Remove the cmd itself
+    keys.shift();
+
     return 'List: .' + keys.join(' .');
   },
 
+  // PLEASE ORDER BELOW BY ALPHA
   caniuse: function(param) {
     return 'http://caniuse.com/#search=' + param;
-  },
-
-  img: function(param) {
-    return 'http://mebe.co/' + param + '.jpeg';
-  },
-
-  google: function(param) {
-    return 'https://www.google.com/search?q=' + param
-  },
-
-  mdn: function(param) {
-    return 'https://developer.mozilla.org/en-US/search?q=' + param + '&sitesearch=developer.mozilla.org';
   },
 
   conj: function(param) {
     return 'http://leconjugueur.lefigaro.fr/conjugaison/verbe/' + param + '.html';
   },
 
+  fakeimg: function() {
+    return 'Tiens connard : http://fakeimg.pl && http://placekitten.com && http://placedog.com && http://placesheen.com';
+  },
+
+  forkyou: function() {
+    return 'Please, please, please https://github.com/kud/ed-209';
+  },
+
   gh: function(param) {
     return 'https://github.com/search?q=' + param;
+  },
+
+  google: function(param) {
+    return 'https://www.google.com/search?q=' + param
+  },
+
+  img: function(param) {
+    return 'http://mebe.co/' + param + '.jpeg';
+  },
+
+  mdn: function(param) {
+    return 'https://developer.mozilla.org/en-US/search?q=' + param + '&sitesearch=developer.mozilla.org';
   },
 
   repo: function(param) {
@@ -62,12 +74,11 @@ var app = {
     return '1d6: ' + dice(6);
   },
 
-  fakeimg: function() {
-    return 'Tiens connard : http://fakeimg.pl && http://placekitten.com && http://placedog.com && http://placesheen.com';
-  },
+  roulette: function() {
+    var trigger = Math.floor(Math.random()*6 + 1),
+        user = Math.floor(Math.random()*6 + 1);
 
-  unicode: function() {
-    return 'Ha tu veux de l\'unicode, bah tiens, gros con : http://copypastecharacter.com';
+    return trigger === user ? 'BANG!' : 'Click!';
   },
 
   svg: function() {
@@ -79,15 +90,8 @@ var app = {
     return list.join('\n');
   },
 
-  forkyou: function() {
-    return 'Please, please, please https://github.com/kud/ed-209';
-  },
-
-  roulette: function() {
-    var trigger = Math.floor(Math.random()*6 + 1),
-        user = Math.floor(Math.random()*6 + 1);
-
-    return trigger === user ? 'BANG!' : 'Click!';
+  unicode: function() {
+    return 'Ha tu veux de l\'unicode, bah tiens, gros con : http://copypastecharacter.com';
   }
 }
 
