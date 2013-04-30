@@ -56,6 +56,12 @@ var app = {
     return 'https://github.com/' + param;
   },
 
+  roll: function(param) {
+    var dice = function(sides) { return Math.floor((Math.random() * sides) + 1) };
+
+    return '1d6: ' + dice(6);
+  },
+
   fakeimg: function() {
     return 'Tiens connard : http://fakeimg.pl && http://placekitten.com && http://placedog.com && http://placesheen.com';
   },
