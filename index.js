@@ -75,8 +75,8 @@ var app = {
   },
 
   roulette: function() {
-    var trigger = Math.floor(Math.random()*6 + 1),
-        user = Math.floor(Math.random()*6 + 1);
+    var trigger = 4,
+        user = Math.floor(Math.random()*8 + 1);
 
     return trigger === user ? 'BANG!' : 'Click!';
   },
