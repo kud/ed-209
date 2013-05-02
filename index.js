@@ -28,7 +28,7 @@ var app = {
     // Remove the cmd itself
     keys.shift();
 
-    return 'List: .' + keys.join(' .');
+    return 'List: ➤ ' + keys.join('  ➤ ');
   },
 
   // PLEASE ORDER BELOW BY ALPHA
@@ -40,8 +40,15 @@ var app = {
     return 'http://leconjugueur.lefigaro.fr/conjugaison/verbe/' + param + '.html';
   },
 
-  fakeimg: function() {
-    return 'Tiens connard : http://fakeimg.pl && http://placekitten.com && http://placedog.com && http://placesheen.com';
+  fakeimg: function(width, height, text, font) {
+    var content = 'http://fakeimg.pl/';
+
+    if(width) { content += width; }
+    if(height) { content += 'x' + height; }
+    if(text) { content += '/?text=' + text; }
+    if(font) { content += '&font=' + font }
+
+    return  content;
   },
 
   forkyou: function() {
