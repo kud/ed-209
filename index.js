@@ -1,6 +1,7 @@
 // Import
 var _irc = require('irc'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    shellwords = require('shellwords');
 
 // Config
 var botName = 'bobot',
@@ -112,7 +113,7 @@ client.addListener('message', function (from, to, message) {
 
       if(catchedMessage && catchedMessage[1]) {
         var plainParams = catchedMessage[1],
-            params = plainParams.split(' '),
+            params = shellwords.split(plainParams),
             cmd = params.shift();
 
         if(typeof app[cmd] !== 'undefined') {

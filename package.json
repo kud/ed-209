@@ -3,7 +3,8 @@
   "dependencies": {
     "irc": "*",
     "lodash": "*",
-    "nodemon": "*"
+    "nodemon": "*",
+    "shellwords": "*"
   },
   "scripts": {
     "start": "nodemon index.js"
