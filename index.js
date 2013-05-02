@@ -34,11 +34,11 @@ var app = {
 
   // PLEASE ORDER BELOW BY ALPHA
   caniuse: function(param) {
-    return 'http://caniuse.com/#search=' + param;
+    return 'http://caniuse.com/#search=' + encodeURIComponent(param);
   },
 
   conj: function(param) {
-    return 'http://leconjugueur.lefigaro.fr/conjugaison/verbe/' + param + '.html';
+    return 'http://leconjugueur.lefigaro.fr/conjugaison/verbe/' + encodeURIComponent(param) + '.html';
   },
 
   fakeimg: function(width, height, text, font) {
@@ -46,8 +46,8 @@ var app = {
 
     if(width) { content += width; }
     if(height) { content += 'x' + height; }
-    if(text) { content += '/?text=' + text; }
-    if(font) { content += '&font=' + font }
+    if(text) { content += '/?text=' + encodeURIComponent(text); }
+    if(font) { content += '&font=' + encodeURIComponent(font) }
 
     return  content;
   },
@@ -57,19 +57,19 @@ var app = {
   },
 
   gh: function(param) {
-    return 'https://github.com/search?q=' + param;
+    return 'https://github.com/search?q=' + encodeURIComponent(param);
   },
 
   google: function(param) {
-    return 'https://www.google.com/search?q=' + param
+    return 'https://www.google.com/search?q=' + encodeURIComponent(param)
   },
 
   img: function(param) {
-    return 'http://mebe.co/' + param + '.jpeg';
+    return 'http://mebe.co/' + encodeURIComponent(param) + '.jpeg';
   },
 
   mdn: function(param) {
-    return 'https://developer.mozilla.org/en-US/search?q=' + param + '&sitesearch=developer.mozilla.org';
+    return 'https://developer.mozilla.org/en-US/search?q=' + encodeURIComponent(param) + '&sitesearch=developer.mozilla.org';
   },
 
   repo: function(param) {
