@@ -5,6 +5,8 @@ var _irc = require('irc'),
     http = require('http'),
     cheerio = require('cheerio');
 
+process.stdin.resume();
+
 // Config
 var botName = 'bobot',
     channels = [
@@ -174,7 +176,15 @@ client.addListener('message', function (from, to, message) {
 });
 
 client.addListener('pm', function (from, message) {
-    console.log(from + ' => ME: ' + message);
+  console.log(from + ' => ME: ' + message);
+});
+
+// Allow admin to talk via shell.
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+
+process.stdin.on('data', function (chunk) {
+  client.say('##ability', chunk);
 });
 
 // Talk itself
