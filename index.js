@@ -158,8 +158,6 @@ client.addListener('message', function (from, to, message) {
               songName = $playerHeader.find('h1').text(),
               artistName = $playerHeader.find('h2').text().replace(' by ', '');
 
-        console.log([songName, artistName]);
-
           client.say(to, '♫ ' +  artistName + ' - ' + songName + ' ♫');
         });
       });
