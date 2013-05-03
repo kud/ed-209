@@ -8,8 +8,8 @@ var _irc = require('irc'),
 // Config
 var botName = 'bobot',
     channels = [
-      //'##ability',
-      //'#francejs',
+      '##ability',
+      '#francejs',
       '#bobot'
     ],
     server = 'irc.freenode.net';
@@ -167,3 +167,20 @@ client.addListener('message', function (from, to, message) {
 client.addListener('pm', function (from, message) {
     console.log(from + ' => ME: ' + message);
 });
+
+// Talk itself
+var speech = [
+  "Space, space...?",
+  "I'm in space.",
+  "Spaaaaaaaaaaaaace..."
+];
+
+client.addListener('message', function (from, to, message) {
+  setInterval(function() {
+    var randomNumber = _.random(0, speech.length - 1);
+    client.say('##ability', speech[randomNumber]);
+  }, 15000);
+});
+
+
+
