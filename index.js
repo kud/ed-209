@@ -77,9 +77,18 @@ var app = {
   },
 
   roll: function(param) {
-    var dice = function(sides) { return Math.floor((Math.random() * sides) + 1) };
+    var dice = function(sides) { return Math.floor((Math.random() * sides) + 1) },
+        expr = param.split('d'),
+        diceCount = parseInt(expr[0]),
+        sideCount = parseInt(expr[1]),
+        results   = [];
 
-    return '1d6: ' + dice(6);
+    for (var i = 0; i < diceCount; i++)
+      results.push(dice(sideCount));
+
+    var sum = results.reduce(function(a, e) { return a + e });
+
+    return param + ': ' + results + ' = ' + sum;
   },
 
   roulette: function() {
