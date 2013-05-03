@@ -162,6 +162,15 @@ client.addListener('message', function (from, to, message) {
         });
       });
     }
+
+    if(message.search('rdio.com') !== -1) {
+      var pattern    = new RegExp('https?://(?:www\\.)rdio\.com/artist/([^/]+)/album/([^/]+)/track/([^/]+)'),
+          match      = message.match(pattern),
+          artistName = match[1].replace('_', ' ', 'g'),
+          songName   = match[3].replace('_', ' ', 'g');
+
+      client.say(to, '♫ ' +  artistName + ' - ' + songName + ' ♫');
+    }
 });
 
 client.addListener('pm', function (from, message) {
