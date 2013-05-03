@@ -1,13 +1,15 @@
 // Import
 var _irc = require('irc'),
     _ = require('lodash'),
-    shellwords = require('shellwords');
+    shellwords = require('shellwords'),
+    http = require('http'),
+    cheerio = require('cheerio');
 
 // Config
 var botName = 'bobot',
     channels = [
-      '##ability',
-      '#francejs',
+      //'##ability',
+      //'#francejs',
       '#bobot'
     ],
     server = 'irc.freenode.net';
@@ -131,6 +133,34 @@ client.addListener('message', function (from, to, message) {
           client.say(to, 'Unknown cmd. :]');
         }
       }
+    }
+
+    if(message.search('open.spotify.com') !== -1) {
+      var pattern = /https?:\/\/\S+/g,
+          getUrl = new RegExp(pattern),
+          url;
+
+      url = message.match(getUrl)[0];
+
+      http.get(url, function(response) {
+        var dom = '';
+
+        response.on("data", function(chunk) {
+          dom += chunk;
+        });
+
+        response.on("end", function() {
+          dom = dom.toString();
+
+          $ = cheerio.load(dom);
+
+          var $playerHeader = $('.player-header'),
+              songName = $playerHeader.find('h1').text(),
+              artistName = $playerHeader.find('h2').text();
+
+          client.say(to, '♫ ' + songName + artistName + ' ♫');
+        });
+      });
     }
 });
 

@@ -15,5 +15,8 @@
   "main": "index.js",
   "repository": "",
   "author": "Erwann Mest",
-  "license": "BSD"
+  "license": "BSD",
+  "devDependencies": {
+    "cheerio": "~0.11.0"
+  }
 }
