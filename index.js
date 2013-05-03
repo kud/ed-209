@@ -156,11 +156,22 @@ client.addListener('message', function (from, to, message) {
 
           var $playerHeader = $('.player-header'),
               songName = $playerHeader.find('h1').text(),
-              artistName = $playerHeader.find('h2').text();
+              artistName = $playerHeader.find('h2').text().replace(' by ', '');
 
-          client.say(to, '♫ ' + songName + artistName + ' ♫');
+        console.log([songName, artistName]);
+
+          client.say(to, '♫ ' +  artistName + ' - ' + songName + ' ♫');
         });
       });
+    }
+
+    if(message.search('rdio.com') !== -1) {
+      var pattern    = new RegExp('https?://(?:www\\.)rdio\.com/artist/([^/]+)/album/([^/]+)/track/([^/]+)'),
+          match      = message.match(pattern),
+          artistName = match[1].replace('_', ' ', 'g'),
+          songName   = match[3].replace('_', ' ', 'g');
+
+      client.say(to, '♫ ' +  artistName + ' - ' + songName + ' ♫');
     }
 });
 
