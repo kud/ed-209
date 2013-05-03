@@ -156,9 +156,11 @@ client.addListener('message', function (from, to, message) {
 
           var $playerHeader = $('.player-header'),
               songName = $playerHeader.find('h1').text(),
-              artistName = $playerHeader.find('h2').text();
+              artistName = $playerHeader.find('h2').text().replace(' by ', '');
 
-          client.say(to, '♫ ' + songName + artistName + ' ♫');
+        console.log([songName, artistName]);
+
+          client.say(to, '♫ ' +  artistName + ' - ' + songName + ' ♫');
         });
       });
     }
