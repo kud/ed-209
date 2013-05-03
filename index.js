@@ -130,7 +130,7 @@ client.addListener('message', function (from, to, message) {
         if(typeof app[cmd] !== 'undefined') {
           client.say(to, app[cmd].apply(app, params));
         } else {
-          client.say(to, 'Unknown cmd. :]');
+          client.say(to, 'Unknown command, sucker. :]');
         }
       }
     }
@@ -178,18 +178,16 @@ client.addListener('pm', function (from, message) {
 });
 
 // Talk itself
-var speech = [
-  "Space, space...?",
-  "I'm in space.",
-  "Spaaaaaaaaaaaaace..."
-];
+// var speech = [
+//   "Space, space...?",
+//   "I'm in space.",
+//   "Spaaaaaaaaaaaaace..."
+// ];
 
-client.addListener('message', function (from, to, message) {
-  setInterval(function() {
-    var randomNumber = _.random(0, speech.length - 1);
-    client.say('##ability', speech[randomNumber]);
-  }, 15000);
-});
+// setInterval(function() {
+//     var randomNumber = _.random(0, speech.length - 1);
+//     client.say('##ability', speech[randomNumber]);
+//   }, 15000);
 
 
 
