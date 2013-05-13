@@ -76,6 +76,10 @@ var app = {
     return 'https://developer.mozilla.org/en-US/search?q=' + encodeURIComponent(param) + '&sitesearch=developer.mozilla.org';
   },
 
+  paste: function() {
+    return 'Paste your code on https://gist.github.com/ for fuck\'s sake!';
+  },
+
   repo: function(param) {
     return 'https://github.com/' + param;
   },
@@ -137,7 +141,7 @@ client.addListener('message', function (from, to, message) {
       }
     }
 
-    if(message.search('open.spotify.com') !== -1) {
+    if(message.search('http://open.spotify.com') !== -1) {
       var pattern = /https?:\/\/\S+/g,
           getUrl = new RegExp(pattern),
           url;
