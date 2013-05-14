@@ -3,6 +3,7 @@ var _irc = require('irc'),
     _ = require('lodash'),
     shellwords = require('shellwords'),
     http = require('http'),
+    https = require('https'),
     cheerio = require('cheerio');
 
 process.stdin.resume();
@@ -176,6 +177,34 @@ client.addListener('message', function (from, to, message) {
           songName   = match[3].replace(/_/g, ' ');
 
       client.say(to, '♫ ' +  artistName + ' - ' + songName + ' ♫');
+    }
+
+    if(message.search('https://twitter.com/') !== -1) {
+      var pattern = /https?:\/\/\S+/g,
+          getUrl = new RegExp(pattern),
+          url;
+
+      url = message.match(getUrl)[0];
+
+      https.get(url, function(response) {
+        var dom = '';
+
+        response.on("data", function(chunk) {
+          dom += chunk;
+        });
+
+        response.on("end", function() {
+          dom = dom.toString();
+
+          $ = cheerio.load(dom);
+
+          var $tweet = $('.js-tweet-text').first(),
+              $author = $('.js-account-group').first().find('.js-action-profile-name b'),
+              tweet = $author.text() + ': ' + $tweet.text();
+
+          client.say(to, tweet);
+        });
+      });
     }
 });
 
