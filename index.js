@@ -172,11 +172,14 @@ client.addListener('message', function (from, to, message) {
 
     if(message.search('rdio.com') !== -1) {
       var pattern    = new RegExp('https?://(?:www\\.)rdio\.com/artist/([^/]+)/album/([^/]+)/track/([^/]+)'),
-          match      = message.match(pattern),
-          artistName = decodeURIComponent(match[1].replace(/_/g, ' ')),
-          songName   = decodeURIComponent(match[3].replace(/_/g, ' '));
+          match      = message.match(pattern);
 
-      client.say(to, '♫ ' +  artistName + ' - ' + songName + ' ♫');
+      if (match) {
+        var artistName = decodeURIComponent(match[1].replace(/_/g, ' ')),
+            songName   = decodeURIComponent(match[3].replace(/_/g, ' '));
+
+        client.say(to, '♫ ' +  artistName + ' - ' + songName + ' ♫');
+      }
     }
 
     if(message.search('https://twitter.com/') !== -1) {
