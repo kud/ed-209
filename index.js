@@ -4,7 +4,7 @@ var evalBox = (function(){
   return function(str){
     try {
       var r = eval(str)
-      return "" + r 
+      return "" + r
     } catch(e){
       return "Errored, fucker"
     }
@@ -26,7 +26,7 @@ var evalBox = (function(){
   // Config
   var botName = 'bobot',
       channels = [
-        '##ability',
+        '#putaindecode',
         '#francejs',
         '#bobot'
       ],
