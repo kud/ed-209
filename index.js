@@ -220,7 +220,7 @@ var evalBox = (function(){
 
             $ = cheerio.load(dom);
 
-            var $tweet = $('.js-tweet-text').first(),
+            var $tweet = $('.opened-tweet').find('.js-tweet-text').first(),
                 $author = $('.js-account-group').first().find('.js-action-profile-name b'),
                 tweet = $author.text() + ': ' + $tweet.text();
 
