@@ -24,10 +24,10 @@ var evalBox = (function(){
   process.stdin.resume();
 
   // Config
-  var botName = 'bobot',
+  var botName = 'babot',
       channels = [
-        '#putaindecode',
-        '#francejs',
+        // '#putaindecode',
+        // '#francejs',
         '#bobot'
       ],
       server = 'irc.freenode.net';
@@ -225,6 +225,33 @@ var evalBox = (function(){
                 tweet = $author.text() + ': ' + $tweet.text();
 
             client.say(to, tweet);
+          });
+        });
+      }
+
+      if(message.search('youtube.com')) {
+        var pattern = /https?:\/\/\S+/g,
+            getUrl = new RegExp(pattern),
+            url;
+
+        url = message.match(getUrl)[0];
+
+        http.get(url, function(response) {
+          var dom = '';
+
+          response.on("data", function(chunk) {
+            dom += chunk;
+          });
+
+          response.on("end", function() {
+            dom = dom.toString();
+
+            $ = cheerio.load(dom);
+
+            var $title = $('title').first()
+                title = 'Youtube: ' + $title.text().replace('- YouTube', '');
+
+            client.say(to, title);
           });
         });
       }
