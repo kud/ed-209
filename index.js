@@ -24,10 +24,10 @@ var evalBox = (function(){
   process.stdin.resume();
 
   // Config
-  var botName = 'babot',
+  var botName = 'bobot',
       channels = [
-        // '#putaindecode',
-        // '#francejs',
+        '#putaindecode',
+        '#francejs',
         '#bobot'
       ],
       server = 'irc.freenode.net';
