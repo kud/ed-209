@@ -229,7 +229,7 @@ var evalBox = (function(){
         });
       }
 
-      if(message.search('youtube.com')) {
+      if(message.search('youtube.com') !== -1) {
         var pattern = /https?:\/\/\S+/g,
             getUrl = new RegExp(pattern),
             url;
