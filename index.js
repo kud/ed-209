@@ -236,7 +236,7 @@ var evalBox = (function(){
             httpClient;
 
         url = message.match(getUrl)[0];
-        httpClient = (message.search('https'= !== -1)) ? https : http;
+        httpClient = (message.search('https' !== -1)) ? https : http;
 
         httpClient.get(url, function(response) {
           var dom = '';
