@@ -232,11 +232,13 @@ var evalBox = (function(){
       if(message.search('youtube.com') !== -1) {
         var pattern = /https?:\/\/\S+/g,
             getUrl = new RegExp(pattern),
-            url;
+            url,
+            httpClient;
 
         url = message.match(getUrl)[0];
+        httpClient = (message.search('https'= !== -1)) ? https : http;
 
-        http.get(url, function(response) {
+        httpClient.get(url, function(response) {
           var dom = '';
 
           response.on("data", function(chunk) {
