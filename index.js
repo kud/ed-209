@@ -150,12 +150,19 @@ var evalBox = (function(){
 
         if(catchedMessage && catchedMessage[1]) {
           var plainParams = catchedMessage[1],
-              params = shellwords.split(plainParams),
-              cmd = params.shift();
+              params,
+              cmd;
 
-          if(typeof app[cmd] !== 'undefined') {
-            client.say(to, app[cmd].apply(app, params));
-          } else {
+          try {
+            params = shellwords.split(plainParams);
+            cmd = params.shift();
+
+            if(typeof app[cmd] !== 'undefined') {
+              client.say(to, app[cmd].apply(app, params));
+            } else {
+              client.say(to, 'Unknown command, sucker. :]');
+            }
+          } catch(err) {
             client.say(to, 'Unknown command, sucker. :]');
           }
         }
