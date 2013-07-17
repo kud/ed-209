@@ -66,13 +66,12 @@ var evalBox = (function(){
     }
   }
 
-  // Load commands from the command/ dir
+  // Load commands from the commands/ dir
   if (fs.existsSync('commands')) {
     var commands = fs.readdirSync('commands');
 
     for (var i = 0, l = commands.length; i < l; i++) {
       var cmdPath = './' + path.join('commands', commands[i]),
-          // cmdName = path.basename(commands[i], path.extname(commands[i])),
           cmdModule = require(cmdPath);
 
       for (var cmdName in cmdModule) {
