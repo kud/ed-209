@@ -19,22 +19,34 @@ var evalBox = (function(){
       shellwords = require('shellwords'),
       http = require('http'),
       https = require('https'),
-      cheerio = require('cheerio');
+      cheerio = require('cheerio'),
+      fs = require('fs');
 
   process.stdin.resume();
 
   // Config
-  var botName = 'bobot',
-      channels = [
-        '#putaindecode',
-        '#francejs',
-        '#bobot'
-      ],
-      server = 'irc.freenode.net';
+  var config = {
+    botName: 'bobot',
+    channels: [
+      '#putaindecode',
+      '#francejs',
+      '#bobot'
+    ],
+    server: 'irc.freenode.net'
+  };
+
+  // Load the config.json file if it exists
+  if (fs.existsSync('config.json')) {
+    var jsonConfig = JSON.parse(fs.readFileSync('config.json'));
+
+    for (var setting in jsonConfig) {
+      config[setting] = jsonConfig[setting]
+    }
+  }
 
   // IRC client
-  var client = new _irc.Client(server, botName, {
-      channels: channels,
+  var client = new _irc.Client(config.server, config.botName, {
+      channels: config.channels,
       floodProtection: true,
       floodProtectionDelay: 500
   });
@@ -145,8 +157,8 @@ var evalBox = (function(){
       console.log(from + ' => ' + to + ': ' + message);
 
       // We're talking to the bot
-      if(message.search(botName) !== -1) {
-        var catchedMessage = message.match(new RegExp(botName + ": (.*)"));
+      if(message.search(config.botName) !== -1) {
+        var catchedMessage = message.match(new RegExp(config.botName + ": (.*)"));
 
         if(catchedMessage && catchedMessage[1]) {
           var plainParams = catchedMessage[1],
