@@ -72,10 +72,12 @@ var evalBox = (function(){
 
     for (var i = 0, l = commands.length; i < l; i++) {
       var cmdPath = './' + path.join('commands', commands[i]),
-          cmdName = path.basename(commands[i], path.extname(commands[i])),
+          // cmdName = path.basename(commands[i], path.extname(commands[i])),
           cmdModule = require(cmdPath);
 
-      app[cmdName] = cmdModule[cmdName];
+      for (var cmdName in cmdModule) {
+        app[cmdName] = cmdModule[cmdName];
+      }
     }
   }
 
