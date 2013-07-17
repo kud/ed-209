@@ -65,6 +65,7 @@ var evalBox = (function(){
       return 'List: ➤ ' + keys.join('  ➤ ');
     }
   }
+  var messageHandlers = {};
 
   // Load commands from the commands/ dir
   if (fs.existsSync('commands')) {
@@ -77,6 +78,19 @@ var evalBox = (function(){
       for (var cmdName in cmdModule) {
         app[cmdName] = cmdModule[cmdName];
       }
+    }
+  }
+
+  // Load handlers from the handlers/ dir
+  if (fs.existsSync('handlers')) {
+    var handlers = fs.readdirSync('handlers');
+
+    for (var i = 0, l = handlers.length; i < l; i++) {
+      var handlerPath = './' + path.join('handlers', handlers[i]),
+          handlerName = path.basename(handlers[i], path.extname(handlers[i])),
+          handlerModule = require(handlerPath);
+
+      messageHandlers[handlerName] = handlerModule;
     }
   }
 
@@ -108,101 +122,17 @@ var evalBox = (function(){
         }
       }
 
-      if(message.search('http://open.spotify.com') !== -1) {
-        var pattern = /https?:\/\/\S+/g,
-            getUrl = new RegExp(pattern),
-            url;
+      for (var handlerName in messageHandlers) {
+        var handler = messageHandlers[handlerName];
 
-        url = message.match(getUrl)[0];
-
-        http.get(url, function(response) {
-          var dom = '';
-
-          response.on("data", function(chunk) {
-            dom += chunk;
+        if (message.search(handler.pattern) !== -1) {
+          handler.callback.call(this, {
+            from: from,
+            to: to,
+            message: message,
+            client: client
           });
-
-          response.on("end", function() {
-            dom = dom.toString();
-
-            $ = cheerio.load(dom);
-
-            var $playerHeader = $('.player-header'),
-                songName = $playerHeader.find('h1').text(),
-                artistName = $playerHeader.find('h2').text().replace(' by ', '');
-
-            client.say(to, '♫ ' +  artistName + ' - ' + songName + ' ♫');
-          });
-        });
-      }
-
-      if(message.search('rdio.com') !== -1) {
-        var pattern    = new RegExp('https?://(?:www\\.)rdio\.com/artist/([^/]+)/album/([^/]+)/track/([^/]+)'),
-            match      = message.match(pattern);
-
-        if (match) {
-          var artistName = decodeURIComponent(match[1].replace(/_/g, ' ')),
-              songName   = decodeURIComponent(match[3].replace(/_/g, ' '));
-
-          client.say(to, '♫ ' +  artistName + ' - ' + songName + ' ♫');
         }
-      }
-
-      if(message.search('https://twitter.com/') !== -1) {
-        var pattern = /https?:\/\/\S+/g,
-            getUrl = new RegExp(pattern),
-            url;
-
-        url = message.match(getUrl)[0];
-
-        https.get(url, function(response) {
-          var dom = '';
-
-          response.on("data", function(chunk) {
-            dom += chunk;
-          });
-
-          response.on("end", function() {
-            dom = dom.toString();
-
-            $ = cheerio.load(dom);
-
-            var $tweet = $('.opened-tweet').find('.js-tweet-text').first(),
-                $author = $('.js-account-group').first().find('.js-action-profile-name b'),
-                tweet = $author.text() + ': ' + $tweet.text();
-
-            client.say(to, tweet);
-          });
-        });
-      }
-
-      if(message.search('youtube.com') !== -1) {
-        var pattern = /https?:\/\/\S+/g,
-            getUrl = new RegExp(pattern),
-            url,
-            httpClient;
-
-        url = message.match(getUrl)[0];
-        httpClient = (message.search('https') !== -1) ? https : http;
-
-        httpClient.get(url, function(response) {
-          var dom = '';
-
-          response.on("data", function(chunk) {
-            dom += chunk;
-          });
-
-          response.on("end", function() {
-            dom = dom.toString();
-
-            $ = cheerio.load(dom);
-
-            var $title = $('title').first()
-                title = 'Youtube: ' + $title.text().replace('- YouTube', '');
-
-            client.say(to, title);
-          });
-        });
       }
   });
 
