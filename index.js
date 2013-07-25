@@ -20,7 +20,7 @@ var evalBox = (function(){
       http = require('http'),
       https = require('https'),
       cheerio = require('cheerio'),
-      fs = require('fs')
+      fs = require('fs'),
       path = require('path');
 
   process.stdin.resume();
