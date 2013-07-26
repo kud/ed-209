@@ -9,31 +9,20 @@
       path = require('path'),
       util = require('util');
 
-  // Config
-  var config = {
-    botName: 'bobot',
-    channels: [
-      '#putaindecode',
-      '#francejs',
-      '#bobot'
-    ],
-    server: 'irc.freenode.net'
-  };
-
   // Load the config.json file if it exists
   if (fs.existsSync('config.json')) {
-    var jsonConfig = JSON.parse(fs.readFileSync('config.json'));
-
-    for (var setting in jsonConfig) {
-      config[setting] = jsonConfig[setting]
-    }
+    var config = JSON.parse(fs.readFileSync('config.json'));
+  }
+  else {
+    console.error('Wow, wow, wow! Please, have a `config.json` for fuck\'s sake!');
+    process.exit(1);
   }
 
   // IRC client
   var client = new irc.Client(config.server, config.botName, {
       channels: config.channels,
-      floodProtection: true,
-      floodProtectionDelay: 500
+      floodProtection: config.flood.protection,
+      floodProtectionDelay: config.flood.delay
   });
 
   var app = {
