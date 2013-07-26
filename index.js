@@ -1,17 +1,3 @@
-var evalBox = (function(){
-  function require() { throw "fucker"; }
-  var module
-  return function(str){
-    try {
-      var r = eval(str)
-      return "" + r
-    } catch(e){
-      return "Errored, fucker"
-    }
-  }
-})();
-
-
 (function(){
   // Import
   var _irc = require('irc'),
