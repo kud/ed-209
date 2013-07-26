@@ -23,7 +23,7 @@ exports.callback = function(context) {
       $ = cheerio.load(dom);
 
       var $tweet = $('.opened-tweet').find('.js-tweet-text').first(),
-          $author = $('.js-account-group').first().find('.js-action-profile-name b'),
+          $author = '@' + $('.permalink-tweet-container').first().find('.js-action-profile-name b').first(),
           tweet = $author.text() + ': ' + $tweet.text();
 
       context.client.say(context.to, tweet);
