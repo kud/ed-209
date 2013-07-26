@@ -21,7 +21,7 @@ Yeah, I'm an irc bot, which aaaaall the features I should have. I'm so lovely. P
 
 ### Modify the config
 
-Please, change my configuration.
+Please, change my configuration (`config.json`).
 
 ### Start me!
 
