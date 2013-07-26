@@ -6,7 +6,8 @@
       https = require('https'),
       cheerio = require('cheerio'),
       fs = require('fs'),
-      path = require('path');
+      path = require('path'),
+      util = require('util');
 
   // Config
   var config = {
@@ -121,6 +122,10 @@
 
   client.addListener('pm', function (from, message) {
     console.log(from + ' => ME: ' + message);
+  });
+
+  client.addListener('error', function (error) {
+    console.error('Error: ' + util.inspect(error));
   });
 
   // Allow admin to talk via shell.
