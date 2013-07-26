@@ -15,13 +15,21 @@ through the bot.
 
 ## Public API
 
-### Attributes
+### Bot Object
 
-* `client`: the connected IRC client. Refer to the [node-irc doc][doc:node-irc]
-  for details.
-* `config`: the configuration object (details below)
+#### `Bot` 
 
-#### The `config` object
+Object containing the inherits of a `bot` instance. 
+
+#### `Bot.create(client, [config])` 
+
+Method to create a `bot` instance. 
+
+##### Param `client`
+
+The connected IRC client. Refer to the [node-irc doc][doc:node-irc]
+
+##### Param `config`
 
 The config object stores the global bot configuration. Developpers should use
 this in a read-only fashion, and use private configuration objects for their
@@ -34,23 +42,50 @@ The available fields are:
 * `server`: the IRC server where the bot operates
 * `debug`: a boolean used to toggle debug mode
 
-### Methods
+### Prototype
 
-#### `listPlugins()`
+####  `PENDING`
+`1` (`1 << 0`)
+####  `BUSY`
+`2` (`1 << 1`)
+####  `ACTIVATED`
+`4` (`1 << 2`)
 
-Returns an array of all the enabled plugins names
+#### `status` 
 
-#### `addPlugin(pluginName)`
+number resulting in the `OR` bitwise addition of the consts matching the current status of `bot`. 
 
-Enable a plugin by its name
+####  `client`
 
-#### `removePlugin(pluginName)`
+object, property descriptor makes it non writable (but configurable), Bound IRC Client. 
 
-Disable a plugin by its name
+####  `config`
 
-#### `getPlugin(pluginName)`
+Object, property descriptors makes its properties non writable (but configurable), he configuration object 
 
-Retrieve an enabled plugin's object by it's name and return it
+#### `create(client, config)` 
+
+Creates a new `bot` instance that inherits from the `thisValue` bot. 
+
+#### `getCommand([commandName])`
+
+If no `name` is specified, returns an object of all the available command names, with each key as `name` (string) and value as a boolean defining whether the command is activated or not. 
+
+If `name` is a `String`, return a boolean defining if the `commandName` command is activated or `null` if the `commandName` doesn't exist. 
+
+If `name` is an `Array`, ruturn a filtered object containing booleans. 
+
+#### `addCommand(commandName[, handler][, cancelActivation])`
+
+Creates a command listener by its name, or creates one from the `pluginName` and optional `handler`. By default, commands are activitated as soon as they are added, but the `cancelActivation` can prevent that behaviour. 
+
+#### `stopCommand(commandName)`
+
+Disable a command by its name
+
+#### `removeCommand(commandName)`
+
+Removes a command by its name
 
 ## Plugin definitions
 
@@ -71,6 +106,13 @@ An example of a minimal plugin can be found below:
 ```
 
 The code is wrapped in a function so you have a specific context. 
+
+or 
+``` js
+var bot = Bot.create(client, config)
+bot.addCommand("noop", function(bot){})
+```
+
 
 ## Common patterns
 
