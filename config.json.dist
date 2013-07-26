@@ -1,7 +1,6 @@
 {
   "botName": "bobot",
   "channels": [
-    "#putaindecode",
     "#bobot"
   ],
   "server": "irc.freenode.net",
