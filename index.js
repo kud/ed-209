@@ -133,7 +133,7 @@
   process.stdin.setEncoding('utf8');
 
   process.stdin.on('data', function (chunk) {
-    client.say('##ability', chunk);
+    client.say(config.channels[0], chunk);
   });
 
 })();
