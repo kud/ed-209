@@ -1,5 +1,4 @@
 var http = require('http'),
-    https = require('https'),
     cheerio = require('cheerio');
 
 exports.pattern = 'youtube.com';
@@ -10,10 +9,9 @@ exports.callback = function(context) {
       url,
       httpClient;
 
-  url = context.message.match(getUrl)[0];
-  httpClient = (context.message.search('https') !== -1) ? https : http;
+  url = context.message.match(getUrl)[0].replace('https', 'http');
 
-  httpClient.get(url, function(response) {
+  http.get(url, function(response) {
     var dom = '';
 
     response.on("data", function(chunk) {
