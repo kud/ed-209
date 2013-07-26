@@ -1,15 +1,12 @@
 (function(){
   // Import
-  var _irc = require('irc'),
-      _ = require('lodash'),
+  var irc = require('irc'),
       shellwords = require('shellwords'),
       http = require('http'),
       https = require('https'),
       cheerio = require('cheerio'),
       fs = require('fs'),
       path = require('path');
-
-  process.stdin.resume();
 
   // Config
   var config = {
@@ -32,7 +29,7 @@
   }
 
   // IRC client
-  var client = new _irc.Client(config.server, config.botName, {
+  var client = new irc.Client(config.server, config.botName, {
       channels: config.channels,
       floodProtection: true,
       floodProtectionDelay: 500
@@ -133,18 +130,5 @@
   process.stdin.on('data', function (chunk) {
     client.say('##ability', chunk);
   });
-
-  // Talk itself
-  // var speech = [
-  //   "Space, space...?",
-  //   "I'm in space.",
-  //   "Spaaaaaaaaaaaaace..."
-  // ];
-
-  // setInterval(function() {
-  //     var randomNumber = _.random(0, speech.length - 1);
-  //     client.say('##ability', speech[randomNumber]);
-  //   }, 15000);
-
 
 })();
