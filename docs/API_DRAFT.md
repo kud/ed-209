@@ -17,13 +17,13 @@ through the bot.
 
 ### Bot Object
 
-#### `Bot` 
+#### `Bot`
 
-Object containing the inherits of a `bot` instance. 
+Object containing the inherits of a `bot` instance.
 
-#### `Bot.create(client, [config])` 
+#### `Bot.create(client, [config])`
 
-Method to create a `bot` instance. 
+Method to create a `bot` instance.
 
 ##### Param `client`
 
@@ -51,39 +51,47 @@ The available fields are:
 ####  `ACTIVATED`
 `4` (`1 << 2`)
 
-#### `status` 
+#### `status`
 
-number resulting in the `OR` bitwise addition of the consts matching the current status of `bot`. 
+number resulting in the `OR` bitwise addition of the consts matching the
+current status of `bot`.
 
 ####  `client`
 
-object, property descriptor makes it non writable (but configurable), Bound IRC Client. 
+object, property descriptor makes it non writable (but configurable), Bound IRC
+Client.
 
 ####  `config`
 
-Object, property descriptors makes its properties non writable (but configurable), he configuration object 
+Object, property descriptors makes its properties non writable (but
+configurable), the configuration object
 
-#### `create(client, config)` 
+#### `create(client, config)`
 
-Creates a new `bot` instance that inherits from the `thisValue` bot. 
+Creates a new `bot` instance that inherits from the `thisValue` bot.
 
-#### `getCommand([commandName])`
+#### `getListener([listenerName])`
 
-If no `name` is specified, returns an object of all the available command names, with each key as `name` (string) and value as a boolean defining whether the command is activated or not. 
+If no `name` is specified, returns an object of all the available listeners
+names, with each key as `name` (string) and value as a boolean defining whether
+the listener is activated or not.
 
-If `name` is a `String`, return a boolean defining if the `commandName` command is activated or `null` if the `commandName` doesn't exist. 
+If `name` is a `String`, return a boolean defining if the `listenerName` listener
+is activated or `null` if `listenerName` doesn't exist.
 
-If `name` is an `Array`, ruturn a filtered object containing booleans. 
+If `name` is an `Array`, ruturn a filtered object containing booleans.
 
-#### `addCommand(commandName[, handler][, cancelActivation])`
+#### `addListener(listenerName[, handler][, cancelActivation])`
 
-Creates a command listener by its name, or creates one from the `pluginName` and optional `handler`. By default, commands are activitated as soon as they are added, but the `cancelActivation` can prevent that behaviour. 
+Creates a listener listener by its name, or creates one from the `pluginName`
+and optional `handler`. By default, listeners are activitated as soon as they
+are added, but the `cancelActivation` can prevent that behaviour.
 
-#### `stopCommand(commandName)`
+#### `stopListener(listenerName)`
 
-Disable a command by its name
+Disable a listener by its name
 
-#### `removeCommand(commandName)`
+#### `removeListener(listenerName)`
 
 Removes a command by its name
 
@@ -105,9 +113,10 @@ An example of a minimal plugin can be found below:
 })(exports);
 ```
 
-The code is wrapped in a function so you have a specific context. 
+The code is wrapped in a function so you have a specific context.
 
-or 
+or
+
 ``` js
 var bot = Bot.create(client, config)
 bot.addCommand("noop", function(bot){})
