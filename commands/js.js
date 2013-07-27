@@ -1,4 +1,6 @@
-exports.js = function(str){
+exports.js = function() {
+  var str = Array.prototype.join.call(arguments, ' ')
+
   return "> " + evalBox(str)
 }
 
