@@ -83,17 +83,21 @@ If `name` is an `Array`, ruturn a filtered object containing booleans.
 
 #### `addListener(listenerName[, handler][, cancelActivation])`
 
-Creates a listener listener by its name, or creates one from the `pluginName`
+Creates a listener by its name, or creates one from the `pluginName`
 and optional `handler`. By default, listeners are activitated as soon as they
 are added, but the `cancelActivation` can prevent that behaviour.
+
+#### `removeListener(listenerName)`
+
+Removes a listener by its name
+
+#### `startListener(listenerName)`
+
+Enable a listener by its name
 
 #### `stopListener(listenerName)`
 
 Disable a listener by its name
-
-#### `removeListener(listenerName)`
-
-Removes a command by its name
 
 ## Plugin definitions
 
