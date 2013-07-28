@@ -21,19 +21,7 @@ var client = new irc.Client(config.server, config.botName, {
     floodProtectionDelay: config.flood.delay
 });
 
-var app = {
-  list: function() {
-    var keys = [];
-    for(var key in this){
-      keys.push(key);
-    }
-
-    // Remove the cmd itself
-    keys.shift();
-
-    return 'List: ➤ ' + keys.join('  ➤ ');
-  }
-}
+var app = {};
 var messageHandlers = {};
 
 // Load commands from the commands/ dir
