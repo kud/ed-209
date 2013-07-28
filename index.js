@@ -2,8 +2,6 @@
   // Import
   var irc = require('irc'),
       shellwords = require('shellwords'),
-      http = require('http'),
-      https = require('https'),
       cheerio = require('cheerio'),
       fs = require('fs'),
       path = require('path'),
