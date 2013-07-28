@@ -2,7 +2,6 @@
   // Import
   var irc = require('irc'),
       shellwords = require('shellwords'),
-      cheerio = require('cheerio'),
       fs = require('fs'),
       path = require('path'),
       util = require('util');
