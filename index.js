@@ -111,6 +111,15 @@
 
   client.addListener('pm', function (from, message) {
     console.log(from + ' => ME: ' + message);
+    if (message == "reload " + config.api_key) {
+      var spawn = require('child_process').spawn;
+      git = spawn('git', ['pull']);
+
+      git.on('close', function(code) {
+        console.log('git pull finished: '+code);
+        client.say(from, 'Done');
+      });
+    }
   });
 
   client.addListener('error', function (error) {

@@ -7,5 +7,6 @@
   "flood": {
     "protection": true,
     "delay": 500
-  }
+  },
+  "api_key": "SEKRET"
 }
