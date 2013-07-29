@@ -28,7 +28,13 @@ var getContent = function (url, context) {
           var stars = $socialCount.first().text().trim(),
               forks = $socialCount.last().text().trim();
 
-          context.client.say(context.to, description + ' | Stars: ' + stars + ' | Forks: ' + forks);
+          var res = [
+            description,
+            'Stars: ' + stars,
+            'Forks: ' + forks,
+          ];
+
+          context.client.say(context.to, res.join(' | '));
         });
 
       });
@@ -37,19 +43,45 @@ var getContent = function (url, context) {
   }, {
 
     pattern: new RegExp('https?://github.com/([^/]+)'),
-    fn: function() {}
+    fn: function() {
+      https.get(url, function(response) {
+        var dom = '';
+
+        response.on("data", function(chunk) {
+          dom += chunk;
+        });
+
+        response.on("end", function() {
+          var res = [];
+          dom = dom.toString();
+
+          var $ = cheerio.load(dom),
+              $h1 = $('h1'),
+              $stats = $('.stats').first().find('li');
+
+          res.push($h1.find('span').first().text().trim() + ' (@' + $h1.find('em').first().text().trim() + ')');
+          $stats.each(function() {
+            res.push($(this).find('strong').text() + ' ' + $(this).find('span').text());
+          });
+
+          context.client.say(context.to, res.join(' | '));
+        });
+
+      });
+    }
 
   }];
 
   var patternsLength = patterns.length;
 
-  for(var i = 0; i < patternsLength ; i++) {
+  for(var i = 0; i < patternsLength; i++) {
     var patternObj = patterns[i],
         pattern    = patternObj.pattern,
         fn         = patternObj.fn,
         match      = context.message.match(pattern);
     if(match instanceof Array && match.length > 0) {
       fn();
+      break;
     }
   }
 
