@@ -5,7 +5,7 @@ exports.pattern = 'https://github.com/';
 
 var getContent = function (url, context) {
 
-  var patterns = [{
+  var patterns = [{ // Repository page
 
     pattern: new RegExp('https?://github.com/([^/]+)/([^/]+)'),
     fn: function() {
@@ -21,7 +21,8 @@ var getContent = function (url, context) {
 
           var $ = cheerio.load(dom),
               $socialCount = $('.social-count'),
-              $description = $('.repository-description').first();
+              $description = $('.repository-description').first(),
+              $lastUpdate  = $('.updated').first();
 
           var description = $description.text().trim();
 
@@ -32,6 +33,7 @@ var getContent = function (url, context) {
             description,
             'Stars: ' + stars,
             'Forks: ' + forks,
+            'Last update: ' + $lastUpdate.text()
           ];
 
           context.client.say(context.to, res.join(' | '));
@@ -40,7 +42,7 @@ var getContent = function (url, context) {
       });
     }
 
-  }, {
+  }, { // User/organization page
 
     pattern: new RegExp('https?://github.com/([^/]+)'),
     fn: function() {
@@ -59,7 +61,7 @@ var getContent = function (url, context) {
               $h1 = $('h1'),
               $stats = $('.stats').first().find('li');
 
-          res.push($h1.find('span').first().text().trim() + ' (@' + $h1.find('em').first().text().trim() + ')');
+          res.push($h1.find('span').text().trim() + ' (@' + $h1.find('em').text().trim() + ')');
           $stats.each(function() {
             res.push($(this).find('strong').text() + ' ' + $(this).find('span').text());
           });
