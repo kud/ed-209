@@ -11,7 +11,8 @@ var http = require('http'),
     var pattern = /https?:\/\/\S+/g,
         getUrl = new RegExp(pattern),
         url,
-        httpClient;
+        httpClient,
+        self = this;
 
     url = message.match(getUrl)[0].replace('https', 'http');
 
@@ -30,7 +31,7 @@ var http = require('http'),
         var $title = $('title').first()
             title = 'Youtube: ' + $title.text().replace('- YouTube', '');
 
-        this.reply(envelope, title);
+        self.reply(envelope, title);
       });
     });
   }

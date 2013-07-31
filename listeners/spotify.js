@@ -10,7 +10,8 @@ var http = require('http'),
   listener.callback = function(message, envelope) {
     var pattern = /https?:\/\/\S+/g,
         getUrl = new RegExp(pattern),
-        url;
+        url,
+        self = this;
 
     url = message.match(getUrl)[0];
 
@@ -31,7 +32,7 @@ var http = require('http'),
             artistName = $playerHeader.find('h2').text().replace(' by ', ''),
             reply = '♫ ' +  artistName + ' - ' + songName + ' ♫';
 
-        this.reply(envelope, reply);
+        self.reply(envelope, reply);
       });
     });
   }
