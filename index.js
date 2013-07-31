@@ -44,7 +44,11 @@ if (fs.existsSync('listeners')) {
         listenerName = path.basename(listeners[i], path.extname(listeners[i])),
         listenerModule = require(listenerPath);
 
-    bot.addListener(listenerName, listenerModule);
+    if (listenerModule.register !== undefined) {
+      listenerModule.register(bot);
+    } else {
+      bot.addListener(listenerName, listenerModule);
+    }
   }
 }
 

@@ -5,15 +5,10 @@
   }
 
   listener.callback = function(message, envelope) {
-    var args = this.Util.extractParams(message, 'js');
+    var str = this.Util.removeCommand(message, 'js'),
+        speech = '> ' + evalBox(str);
 
-    this.reply(envelope, js.apply(this, args));
-  }
-
-  function js() {
-    var str = Array.prototype.join.call(arguments, ' ')
-
-    return "> " + evalBox(str)
+    this.reply(envelope, speech);
   }
 
   var evalBox = (function(){
@@ -27,7 +22,8 @@
         var r = eval(str)
         return "" + r
       } catch(e){
-        return "Errored, fucker"
+        return "Errored, fucker ("+e+")"
+        console.error(e)
       }
     }
   })();
