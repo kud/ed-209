@@ -9,7 +9,7 @@ function UtilityPack(bot) {
 };
 
 UtilityPack.prototype.commandPattern = function(command) {
-  return new RegExp('^' + this.bot.client.nick + ": " + command);
+  return new RegExp('^' + this.bot.client.nick + ": +" + command);
 }
 
 UtilityPack.prototype.matchesCommand = function(command, message) {
