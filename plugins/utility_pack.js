@@ -1,7 +1,7 @@
 var util = require('util')
     shellwords = require('shellwords');
 
-exports.name = 'utility_pack';
+exports.name = 'utility-pack';
 
 exports.register = function(bot) {
   bot.Util = new UtilityPack(bot);
