@@ -28,3 +28,11 @@ Please, change my configuration (`config.json`).
 
     npm start
 
+## Contributing
+
+I'd be happy if you send lots of PRs to me!
+
+Just name your branch descriptively (like feat.*featureName*), and click the
+big Pull Request button!
+
+
