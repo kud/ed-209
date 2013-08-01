@@ -35,7 +35,19 @@ client.addListener('error', function(error) {
   console.error('Error: ' + util.inspect(error));
 });
 
-// Automatically setup listeners from the listeners/ dir
+// Setup plugins
+if (fs.existsSync('plugins')) {
+  var plugins = fs.readdirSync('plugins');
+
+  for (var i = 0, l = plugins.length; i < l; i++) {
+    var pluginPath = './' + path.join('plugins', plugins[i]),
+        pluginModule = require(pluginPath);
+
+    bot.registerPlugin(pluginModule);
+  }
+}
+
+// Setup listeners
 if (fs.existsSync('listeners')) {
   var listeners = fs.readdirSync('listeners');
 

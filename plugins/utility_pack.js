@@ -1,6 +1,11 @@
 var util = require('util')
     shellwords = require('shellwords');
 
+exports.name = 'utility_pack';
+
+exports.register = function(bot) {
+  bot.Util = new UtilityPack(bot);
+}
 /**
  * Utility functions for the listeners
  */
@@ -9,7 +14,7 @@ function UtilityPack(bot) {
 };
 
 UtilityPack.prototype.commandPattern = function(command) {
-  return new RegExp('^' + this.bot.client.nick + ": +" + command);
+  return new RegExp('^' + this.bot.client.nick + ": +" + command + '(\s|$)');
 }
 
 UtilityPack.prototype.matchesCommand = function(command, message) {
@@ -35,5 +40,3 @@ UtilityPack.prototype.removeCommand = function(message, command) {
 
   return plainParams;
 }
-
-module.exports = UtilityPack;

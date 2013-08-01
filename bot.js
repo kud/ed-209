@@ -1,5 +1,4 @@
-var util = require('util'),
-    UtilityPack = require('./utility_pack.js');
+var util = require('util');
 
 /**
  * The main Bot class
@@ -8,7 +7,7 @@ function Bot(client, config) {
   this.client = client;
   this.config = config;
   this.listeners = {};
-  this.Util = new UtilityPack(this);
+  this.plugins = {};
 }
 
 Bot.prototype.join = function(channel) {
@@ -62,6 +61,15 @@ Bot.prototype.listen = function(message, envelope) {
 
 Bot.prototype.addListener = function(name, listener) {
   this.listeners[name] = listener;
+}
+
+Bot.prototype.registerPlugin = function(plugin) {
+  plugin.register(this);
+  this.plugins[plugin.name] = plugin;
+}
+
+Bot.prototype.hasPlugin = function(name) {
+  return name in this.plugins;
 }
 
 module.exports = Bot;
