@@ -1,9 +1,9 @@
 // Imports
-var irc        = require('irc'),
-    fs         = require('fs'),
-    path       = require('path'),
-    util       = require('util'),
-    Bot        = require('./bot.js');
+var irc  = require('irc'),
+    fs   = require('fs'),
+    path = require('path'),
+    util = require('util'),
+    Bot  = require('./bot.js');
 
 // Load the config.json file if it exists
 if (fs.existsSync('config.json')) {
@@ -64,12 +64,4 @@ if (fs.existsSync('listeners')) {
   }
 }
 
-// Allow admin to talk via shell.
-// TODO: move this to a separate plugin
-process.stdin.resume();
-process.stdin.setEncoding('utf8');
-
-process.stdin.on('data', function (chunk) {
-  client.say(config.channels[0], chunk);
-});
-
+// Death metal all the way!
