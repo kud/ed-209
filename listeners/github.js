@@ -23,7 +23,7 @@ var https   = require('https'),
   function parseURL(url, callback) {
 
     // Repository pattern
-    var pattern = new RegExp(/https?:\/\/github.com\/([a-zA-Z0-9-_]+)\/([a-zA-Z0-9-_]+)$/),
+    var pattern = new RegExp(/https?:\/\/github.com\/([a-zA-Z0-9-_]+)\/([a-zA-Z0-9-_]+)(\/?)$/),
         match   = url.match(pattern);
     if(match instanceof Array && match.length > 0) {
 
@@ -43,13 +43,17 @@ var https   = require('https'),
                 $description = $('.repository-description').first(),
                 $lastUpdate  = $('.updated').first();
 
-            var description = $description.text().trim();
+            var name = $description.text().trim();
+            if(name.length === 0) {
+              $name = $('.js-repo-home-link');
+              name = $name.text().trim()
+            }
 
             var stars = $socialCount.first().text().trim(),
                 forks = $socialCount.last().text().trim();
 
             var res = [
-              description,
+              name,
               'Stars: ' + stars,
               'Forks: ' + forks,
               'Last update: ' + $lastUpdate.text()
