@@ -60,7 +60,7 @@ var https = require('https'),
     else if(url.search(/status/) > 0) {
       https.get(url, function(response) {
         if(response.statusCode === 302) {
-          getContent(response.headers.location);
+          parseURL(response.headers.location, callback);
         }
         else {
           var dom = '';
