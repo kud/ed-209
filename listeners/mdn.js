@@ -1,4 +1,6 @@
 (function(listener) {
+  listener.providesCommand = 'mdn';
+
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
            this.Util.matchesCommand('mdn', message);
