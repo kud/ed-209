@@ -5,13 +5,13 @@
   }
 
   ListCommands = {
-    providesCommand: ['list', 'list-commands'],
+    providesCommand: 'list',
     matcher: function(message, envelope) {
       return (envelope.type == 'channel') &&
-             this.Util.matchesCommand('list(-commands)?', message);
+             this.Util.matchesCommand('list', message);
     },
     callback: function(message, envelope) {
-      var args = this.Util.extractParams(message, 'list(-commands)?');
+      var args = this.Util.extractParams(message, 'list');
 
       var keys = [];
       for (var key in this.listeners) {
@@ -26,7 +26,7 @@
         }
       }
 
-      var speech = 'List: ➤ ' + keys.join('  ➤ ');
+      var speech = 'Commands: ' + keys.join(' ∙ ');
 
       this.reply(envelope, speech);
     }
@@ -46,7 +46,7 @@
         if (key == "list") continue;
         keys.push(key);
       }
-      var speech = 'Listeners: ➤ ' + keys.join('  ➤ ');
+      var speech = 'Plugins: ' + keys.join(' ∙ ');
 
       this.reply(envelope, speech);
     }
