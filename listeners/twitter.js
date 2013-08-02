@@ -46,7 +46,12 @@ var twitter = {
                 $imgUrl = $('.media-gallery-image-wrapper').find('.media-slideshow-image').first(),
                 imgUrl = 'Photo: ' + $imgUrl.attr('src');
 
-            tweet = [$tweet.text(), imgUrl].join('\n');
+            tweet = $tweet.text();
+            tweet = tweet.replace(/pic\.twitter\.com\/\S+/g, "");
+
+            console.log(tweet);
+
+            tweet = [tweet, imgUrl].join('\n');
             author = $author.text();
           }
 
@@ -93,12 +98,10 @@ var listener = {
   },
 
   callback: function(message, envelope) {
-    var pattern = /https?:\/\/\S+/g,
-        getUrl = new RegExp(pattern),
-        url = undefined,
+    var url = undefined,
         self = this;
 
-    url = message.match(getUrl)[0];
+    url = message.match(/https?:\/\/\S+/g)[0];
 
     twitter.parseURL(url, function(result) {
       self.reply(envelope, result);
