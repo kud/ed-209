@@ -1,40 +1,35 @@
 var http = require('http'),
-    cheerio = require('cheerio');
+    cheerio = require('cheerio'),
+    getUrl = /https?:\/\/\S+/g
 
-(function(listener) {
+;(function(listener) {
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
            message.search('youtube.com') !== -1;
   }
 
   listener.callback = function(message, envelope) {
-    var pattern = /https?:\/\/\S+/g,
-        getUrl = new RegExp(pattern),
-        url,
+    var url = message.match(getUrl)[0].replace('https', 'http'),
         httpClient,
-        self = this;
-
-    url = message.match(getUrl)[0].replace('https', 'http');
+        self = this
 
     http.get(url, function(response) {
-      var dom = '';
+      var dom = '', $, $title, title
 
       response.on("data", function(chunk) {
-        dom += chunk;
+        dom += chunk
       });
 
       response.on("end", function() {
-        dom = dom.toString();
+        dom = dom.toString()
+        $ = cheerio.load(dom)
 
-        $ = cheerio.load(dom);
+        $title = $('title').first()
+        title = 'Youtube: ' + $title.text().replace('- YouTube', '')
 
-        var $title = $('title').first()
-            title = 'Youtube: ' + $title.text().replace('- YouTube', '');
-
-        self.reply(envelope, title);
-      });
-    });
+        self.reply(envelope, title)
+      })
+    })
   }
 
-})(exports);
-
+})(exports)
