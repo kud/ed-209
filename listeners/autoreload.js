@@ -15,7 +15,7 @@ var listener = {
 
     git.on('close', function(code) {
       console.log('git pull finished: '+code);
-      self.reply(envelope, 'Changes pulled');
+      self.reply(envelope, 'Wouaaah! I\'ve been upgradeeed! Yikes!');
     });
   }
 }
