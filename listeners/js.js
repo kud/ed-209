@@ -17,11 +17,11 @@
   }
 
   var evalBox = (function(){
-    var module, process, exports, require;
+    var module, process, require, exports;
 
     return function(str, reply){
       try {
-        if (str.match(/\bif\b|\bwhile\b|\bfor\b/) !== null) {
+        if (str.match(/\bif\b|\bwhile\b|\bfor\b|\beval\b/) !== null) {
           return "Shove it up your ass, fucker"
         }
         if (str.match(/\bsetTimeout\b/) !== null) {
