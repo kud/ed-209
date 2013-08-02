@@ -24,7 +24,7 @@
 
     var sum = results.reduce(function(a, e) { return a + e });
 
-    return param + ': ' + results + ' = ' + sum;
+    return param + ': ' + results.join(', ') + ' = ' + sum;
   }
 
 })(exports);
