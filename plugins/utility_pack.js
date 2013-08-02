@@ -14,7 +14,7 @@ function UtilityPack(bot) {
 };
 
 UtilityPack.prototype.commandPattern = function(command) {
-  return new RegExp('^' + this.bot.client.nick + ": +" + command + '(\s|$)');
+  return new RegExp('^' + this.bot.client.nick + ": +" + command + '\\b');
 }
 
 UtilityPack.prototype.matchesCommand = function(command, message) {
