@@ -14,8 +14,7 @@
   }
 
   var evalBox = (function(){
-    function require() { throw "fucker"; }
-    var module
+    var module, exports, process, require
     return function(str){
       try {
         if (str.match(/\bif\b|\bwhile\b|\bfor\b/) !== null) {
