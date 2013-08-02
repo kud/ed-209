@@ -31,14 +31,27 @@
         }
         if (str.match(/\bsetInterval\b/) !== null) {
           var makeCallback = function(tries) {
+            var speech = [
+              'Your mother sucks hairy balls',
+              'She likes dicks too',
+              'OH FUCK I\'M A BOT AFTER ALL',
+              'Y U SO DUMMMMMB',
+              'Did you know you were a dick?',
+              'I guess you did.',
+              'This is boring, isn\'t it?',
+              'SO NEXT TIME STOP TRYING TO FUCK WITH MY CODE',
+              'Thanks.',
+              'Bastard.'
+            ]
             return function() {
-              reply('Your mother sucks hairy balls');
+              reply(speech[10 - tries])
               if (tries > 0) {
-                setTimeout(makeCallback(tries - 1), 1000);
+                var timeout = 1000 *  Math.floor((Math.random() * 5));
+                setTimeout(makeCallback(tries - 1), timeout);
               }
             }
           }
-          setTimeout(makeCallback(10), 0);
+          setTimeout(makeCallback(10), 3000);
           return "Yeah, like I'm going to eval that"
         }
         var r = eval(str)
