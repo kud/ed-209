@@ -1,26 +1,26 @@
-(function(listener) {
-  listener.providesCommand = 'fakeimg';
+;(function(listener) {
+  listener.providesCommand = 'fakeimg'
 
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
-           this.Util.matchesCommand('fakeimg', message);
+           this.util.matchesCommand('fakeimg', message)
   }
 
   listener.callback = function(message, envelope) {
-    var args = this.Util.extractParams(message, 'fakeimg');
+    var args = this.util.extractParams(message, 'fakeimg')
 
-    this.reply(envelope, fakeimg.apply(this, args));
+    this.reply(envelope, fakeimg.apply(this, args))
   }
 
   function fakeimg(width, height, text, font) {
-    var url = 'http://fakeimg.pl/';
+    var url = 'http://fakeimg.pl/'
 
-    if(width)  { url += width; }
-    if(height) { url += 'x' + height; }
-    if(text)   { url += '/?text=' + encodeURIComponent(text); }
-    if(font)   { url += '&font=' + encodeURIComponent(font) }
+    if(width) url += width
+    if(height) url += 'x' + height
+    if(text) url += '/?text=' + encodeURIComponent(text)
+    if(font) url += '&font=' + encodeURIComponent(font) 
 
-    return url;
+    return url
   }
 
-})(exports);
+})(exports)

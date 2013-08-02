@@ -1,34 +1,39 @@
-(function(listener) {
+;(function(listener) {
+  
+  var _toString = {}.toString,
+      ARRAY_CLASS = "[object Array]"
+  
   listener.register = function(bot) {
-    bot.addListener('list-commands', ListCommands);
-    bot.addListener('list-plugins',  ListPlugins);
+    bot.addListener('list-commands', ListCommands)
+    bot.addListener('list-plugins',  ListPlugins)
   }
 
   ListCommands = {
     providesCommand: 'list',
     matcher: function(message, envelope) {
       return (envelope.type == 'channel') &&
-             this.Util.matchesCommand('list', message);
+             this.util.matchesCommand('list', message)
     },
     callback: function(message, envelope) {
-      var args = this.Util.extractParams(message, 'list');
-
-      var keys = [];
-      for (var key in this.listeners) {
-        var command = this.listeners[key].providesCommand;
+      var args = this.util.extractParams(message, 'list'),
+          keys = [], 
+          listeners = this.listeners,
+          key, command, speech
+      for (key in listeners) {
+        command = listeners[key].providesCommand
 
         if (command !== undefined) {
-          if (command instanceof Array) {
-            keys.push.apply(keys, command);
+          if (_toString.call(command) == ARRAY_CLASS) {
+            keys.push.apply(keys, command)
           } else {
-            keys.push(command);
+            keys.push(command)
           }
         }
       }
 
-      var speech = 'Commands: ' + keys.join(' ∙ ');
+      speech = 'Commands: ' + keys.join(' ∙ ')
 
-      this.reply(envelope, speech);
+      this.reply(envelope, speech)
     }
   }
 
@@ -36,19 +41,19 @@
     providesCommand: 'list-plugins',
     matcher: function(message, envelope) {
       return (envelope.type == 'channel') &&
-             this.Util.matchesCommand('list-plugins', message);
+             this.util.matchesCommand('list-plugins', message)
     },
     callback: function(message, envelope) {
-      var args = this.Util.extractParams(message, 'list-plugins');
-
-      var keys = [];
-      for (var key in this.plugins) {
-        if (key == "list") continue;
-        keys.push(key);
+      var args = this.util.extractParams(message, 'list-plugins'),
+          plugins = this.plugins
+          keys = [], key, speech
+      for (key in plugins) {
+        if (key == "list") continue
+        keys.push(key)
       }
-      var speech = 'Plugins: ' + keys.join(' ∙ ');
+      speech = 'Plugins: ' + keys.join(' ∙ ')
 
-      this.reply(envelope, speech);
+      this.reply(envelope, speech)
     }
   }
-})(exports);
+})(exports)
