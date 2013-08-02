@@ -23,7 +23,9 @@ Bot.prototype.say = function(to, message) {
 }
 
 Bot.prototype.reply = function(envelope, message) {
-  var replyTo = (envelope.type == 'channel') ? envelope.to : envelope.from;
+  var replyTo = (envelope.type == 'channel' || envelope.type == 'notice')
+                ? envelope.to
+                : envelope.from;
 
   this.say(replyTo, message);
 }
