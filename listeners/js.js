@@ -8,17 +8,33 @@
 
   listener.callback = function(message, envelope) {
     var str = this.Util.removeCommand(message, 'js'),
-        speech = '> ' + evalBox(str);
+        self = this,
+        speech = '> ' + evalBox(str, function(msg) {
+          self.say(envelope.from, msg);
+        });
 
     this.reply(envelope, speech);
   }
 
   var evalBox = (function(){
-    var module, exports, process, require
-    return function(str){
+    var module, process, exports, require;
+
+    return function(str, reply){
       try {
         if (str.match(/\bif\b|\bwhile\b|\bfor\b/) !== null) {
           return "Shove it up your ass, fucker"
+        }
+        if (str.match(/\bsetInterval\b/) !== null) {
+          var makeCallback = function(tries) {
+            return function() {
+              reply('Your mother sucks hairy balls');
+              if (tries > 0) {
+                setTimeout(makeCallback(tries - 1), 1000);
+              }
+            }
+          }
+          setTimeout(makeCallback(10), 0);
+          return "Yeah, like I'm going to eval that"
         }
         var r = eval(str)
         return "" + r
