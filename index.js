@@ -31,6 +31,10 @@ client.addListener('pm', function(from, message) {
   bot.listen(message, {type: 'pm', from: from});
 });
 
+client.addListener('notice', function(from, to, message) {
+  bot.listen(message, {type: 'notice', from: from, to: to});
+});
+
 client.addListener('error', function(error) {
   console.error('Error: ' + util.inspect(error));
 });
