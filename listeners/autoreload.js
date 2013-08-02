@@ -5,6 +5,7 @@ var listener = {
     return envelope.type == 'notice'       &&
            envelope.from !== undefined     &&
            message.search('pushed') !== -1 &&
+           message.search('master') !== -1 &&
            message.search('git.io') !== -1
   },
 
