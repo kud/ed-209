@@ -1,6 +1,8 @@
 exports.matcher = function(message, envelope) {
-  console.log(envelope.from +
-              (envelope.type == 'channel' ? '['+envelope.to+']' : '') +
+  var self = this
+  console.log("  " + 
+              (envelope.type == 'channel' ? self.colors.yellow(envelope.to) + ' > ' : '> ') +
+              self.colors.blue(envelope.from) +
               ': ' +
               message)
   return false

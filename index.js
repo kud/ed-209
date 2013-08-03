@@ -20,6 +20,10 @@ function each(arr, fn, thisValue){
   return arr
 }
 
+console.log("  " + bot.colors.blue("ed-209") + " - " + bot.colors.yellow("{P!}"))
+console.log("  ...")
+
+
 // Load the config.json file if it exists
 if (fs.existsSync('config.json')) {
   config = JSON.parse(fs.readFileSync('config.json'))
@@ -34,6 +38,10 @@ client = new irc.Client(config.server, config.botName, {
     channels: config.channels,
     floodProtection: config.flood.protection,
     floodProtectionDelay: config.flood.delay
+})
+
+each(config.channels, function(channel){
+  console.log("  " + bot.colors.blue("Joining") + " " + bot.colors.yellow(channel))
 })
 
 botInstance = bot.create(client, config)
