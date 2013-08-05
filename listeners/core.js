@@ -26,7 +26,7 @@
         }
       }
 
-      var speech = 'Commands: ' + keys.join(' ∙ ');
+      var speech = 'Commands: ' + keys.sort().join(' ∙ ');
 
       this.reply(envelope, speech);
     }
