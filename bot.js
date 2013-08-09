@@ -1,77 +1,97 @@
-var util = require('util');
+var util = require('util'),
+    bot = Object.create(null)
 
 /**
- * The main Bot class
+ * The main bot object
  */
-function Bot(client, config) {
-  this.client = client;
-  this.config = config;
-  this.listeners = {};
-  this.plugins = {};
+
+
+bot.create = function(){
+  var self = Object.create(this)
+  self.constructor.apply(self, arguments)
+  return self
 }
 
-Bot.prototype.join = function(channel) {
-  this.client.join(channel);
+bot.colors = {
+    green : function(str){ return "\033[0m\033[32m" + str + "\033[0m" },
+    blue : function(str){ return "\033[0m\033[34m" + str + "\033[0m" },
+    yellow : function(str){ return "\033[0m\033[33m" + str + "\033[0m" }
 }
 
-Bot.prototype.part = function(channel) {
-  this.client.part(channel);
+bot.constructor = function(client, config){
+  var self = this
+  self.client = client
+  self.config = config
+  self.listeners = Object.create(null)
+  self.plugins = Object.create(null)
+  return self
 }
 
-Bot.prototype.say = function(to, message) {
-  this.client.say(to, message);
+bot.constructor.prototype = bot;
+
+bot.join = function(channel) {
+  var self = this
+  console.log("  " + self.colors.blue("Joining") + " " + self.colors.yellow(channel))
+  self.client.join(channel)
 }
 
-Bot.prototype.reply = function(envelope, message) {
-  var replyTo = (envelope.type == 'channel' || envelope.type == 'notice')
-                ? envelope.to
-                : envelope.from;
-
-  this.say(replyTo, message);
+bot.part = function(channel) {
+  this.client.part(channel)
 }
 
-Bot.prototype.broadcast = function(message) {
-  var self = this;
+bot.say = function(to, message) {
+  this.client.say(to, message)
+}
+
+bot.reply = function(envelope, message) {
+  var replyTo = envelope.type == 'channel' ? envelope.to : envelope.from
+
+  this.say(replyTo, message)
+}
+
+bot.broadcast = function(message) {
+  var self = this
 
   this.config.channels.forEach(function (channel) {
-    self.say(channel, message);
-  });
+    self.say(channel, message)
+  })
 }
 
-Bot.prototype.listen = function(message, envelope) {
-  var hasMatched = false;
+bot.listen = function(message, envelope) {
+  var self = this,
+      hasMatched = false, 
+      listeners = self.listeners,
+      listener, pattern, l
 
-  for (var l in this.listeners) {
-    var listener = this.listeners[l];
-
-    if (listener.matcher.call(this, message, envelope)) {
+  for (l in listeners) {
+    listener = listeners[l]
+    if (listener.matcher.call(self, message, envelope)) {
       try {
-        listener.callback.call(this, message, envelope);
+        listener.callback.call(self, message, envelope)
       } catch(error) {
-        this.reply(envelope, 'Error:' + util.inspect(error))
-        console.error(error);
+        self.reply(envelope, 'Error:' + util.inspect(error))
+        console.error(error)
       }
-      hasMatched = true;
+      hasMatched = true
     }
   }
-
-  var pattern = this.Util.commandPattern('.+');
-  if (!hasMatched && (message.match(pattern) !== null)) {
-    this.reply(envelope, 'Unknown command, sucker. :]');
+  pattern = self.util.commandPattern('.+')
+  if (!hasMatched && message.match(pattern) !== null) {
+    self.reply(envelope, 'Unknown command, sucker. :]')
   }
 }
 
-Bot.prototype.addListener = function(name, listener) {
-  this.listeners[name] = listener;
+bot.addListener = function(name, listener) {
+  this.listeners[name] = listener
 }
 
-Bot.prototype.registerPlugin = function(plugin) {
-  plugin.register(this);
-  this.plugins[plugin.name] = plugin;
+bot.registerPlugin = function(plugin) {
+  plugin.register(this)
+  this.plugins[plugin.name] = plugin
 }
 
-Bot.prototype.hasPlugin = function(name) {
-  return name in this.plugins;
+bot.hasPlugin = function(name) {
+  return name in this.plugins
 }
 
-module.exports = Bot;
+module.exports = bot

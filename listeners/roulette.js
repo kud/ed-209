@@ -1,22 +1,22 @@
-(function(listener) {
-  listener.providesCommand = 'roulette';
+;(function(listener) {
+  listener.providesCommand = 'roulette'
 
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
-           this.Util.matchesCommand('roulette', message);
+           this.util.matchesCommand('roulette', message)
   }
 
   listener.callback = function(message, envelope) {
-    var args = this.Util.extractParams(message, 'roulette');
+    var args = this.util.extractParams(message, 'roulette')
 
-    this.reply(envelope, roulette.apply(this, args));
+    this.reply(envelope, roulette.apply(this, args))
   }
 
   function roulette() {
     var trigger = 4,
-        user = Math.floor(Math.random()*8 + 1);
+        user = ~~(Math.random() * 8 + 1)
 
-    return trigger === user ? 'BANG!' : 'Click!';
+    return trigger === user ? 'BANG!' : 'Click!'
   }
 
-})(exports);
+})(exports)

@@ -3,69 +3,87 @@ var irc  = require('irc'),
     fs   = require('fs'),
     path = require('path'),
     util = require('util'),
-    Bot  = require('./bot.js');
+    bot  = require('./bot.js'),
+    config,
+    client,
+    botInstance,
+    i, l
+    
+function each(arr, fn, thisValue){
+  var i = -1,
+      l = arr.length >>> 0
+  if(arguments.length > 2) {
+    while(++i < l) if(fn.call(thisValue, arr[i], i, arr) === false) break
+  } else {
+    while(++i < l) if(fn(arr[i], i, arr) === false) break
+  }
+  return arr
+}
+
+console.log("  " + bot.colors.blue("ed-209") + " - " + bot.colors.yellow("{P!}"))
+console.log("  ...")
+
 
 // Load the config.json file if it exists
 if (fs.existsSync('config.json')) {
-  var config = JSON.parse(fs.readFileSync('config.json'));
+  config = JSON.parse(fs.readFileSync('config.json'))
 }
 else {
-  console.error('Wow, wow, wow! Please, have a `config.json` for fuck\'s sake!');
-  process.exit(1);
+  console.error('Wow, wow, wow! Please, have a `config.json` for fuck\'s sake!')
+  process.exit(1)
 }
 
 // IRC client
-var client = new irc.Client(config.server, config.botName, {
+client = new irc.Client(config.server, config.botName, {
     channels: config.channels,
     floodProtection: config.flood.protection,
     floodProtectionDelay: config.flood.delay
-});
+})
 
-var bot = new Bot(client, config);
+each(config.channels, function(channel){
+  console.log("  " + bot.colors.blue("Joining") + " " + bot.colors.yellow(channel))
+})
+
+botInstance = bot.create(client, config)
 
 client.addListener('message#', function(from, to, message) {
-  bot.listen(message, {type: 'channel', from: from, to: to});
-});
+  botInstance.listen(message, {type: 'channel', from: from, to: to})
+})
 
 client.addListener('pm', function(from, message) {
-  bot.listen(message, {type: 'pm', from: from});
-});
+  botInstance.listen(message, {type: 'pm', from: from})
+})
 
 client.addListener('notice', function(from, to, message) {
-  bot.listen(message, {type: 'notice', from: from, to: to});
+  botInstance.listen(message, {type: 'notice', from: from || '', to: to});
 });
 
 client.addListener('error', function(error) {
-  console.error('Error: ' + util.inspect(error));
-});
+  console.error('Error: ' + util.inspect(error))
+})
 
 // Setup plugins
 if (fs.existsSync('plugins')) {
-  var plugins = fs.readdirSync('plugins');
-
-  for (var i = 0, l = plugins.length; i < l; i++) {
-    var pluginPath = './' + path.join('plugins', plugins[i]),
-        pluginModule = require(pluginPath);
-
-    bot.registerPlugin(pluginModule);
-  }
+  each(fs.readdirSync('plugins'), function(plugin){
+    var pluginPath = './' + path.join('plugins', plugin),
+        pluginModule = require(pluginPath)
+    botInstance.registerPlugin(pluginModule)
+  })
 }
 
 // Setup listeners
 if (fs.existsSync('listeners')) {
-  var listeners = fs.readdirSync('listeners');
-
-  for (var i = 0, l = listeners.length; i < l; i++) {
-    var listenerPath = './' + path.join('listeners', listeners[i]),
-        listenerName = path.basename(listeners[i], path.extname(listeners[i])),
-        listenerModule = require(listenerPath);
-
-    if (listenerModule.register !== undefined) {
-      listenerModule.register(bot);
+  each(fs.readdirSync('listeners'), function(listener){
+    var listenerPath = './' + path.join('listeners', listener),
+        listenerName = path.basename(listener, path.extname(listener)),
+        listenerModule = require(listenerPath)
+    
+    if (listenerModule.register !== void 0) {
+      listenerModule.register(botInstance)
     } else {
-      bot.addListener(listenerName, listenerModule);
+      botInstance.addListener(listenerName, listenerModule)
     }
-  }
+  })
 }
 
-// Death metal all the way!
+// There is no way I can let the previous comment here.
