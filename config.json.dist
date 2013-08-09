@@ -1,0 +1,12 @@
+{
+  "botName": "bobot",
+  "channels": [
+    "#bobot"
+  ],
+  "server": "irc.freenode.net",
+  "flood": {
+    "protection": true,
+    "delay": 500
+  },
+  "api_key": "SEKRET"
+}
