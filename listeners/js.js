@@ -1,31 +1,31 @@
 var vm = require('vm');
 
-(function(listener) {
-  listener.providesCommand = 'js';
+;(function(listener) {
+  listener.providesCommand = 'js'
 
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
-           this.Util.matchesCommand('js', message);
+           this.util.matchesCommand('js', message)
   }
 
   listener.callback = function(message, envelope) {
-    var str = this.Util.removeCommand(message, 'js'),
+    var str = this.util.removeCommand(message, 'js'),
         self = this,
         speech = '> ' + evalBox(str, function(msg) {
-          self.say(envelope.from, msg);
-        });
+          self.say(envelope.from, msg)
+        })
 
-    this.reply(envelope, speech);
+    this.reply(envelope, speech)
   }
 
   var evalBox = (function(){
     return function(str, reply){
       try {
-        if (str.match(/\bif\b|\bwhile\b|\bfor\b|\beval\b/) !== null) {
+        if (str.match(/\bif\b|\bwhile\b|\bfor\b|\beval\b|\bforEach\b|\bmap\b|\bfilter\b|\breduce\b/) !== null) {
           return "Shove it up your ass, fucker"
         }
         if (str.match(/\bsetTimeout\b/) !== null) {
-          var timeout = 1000 *  Math.floor((Math.random() * 10))
+          var timeout = 1000 *  ~~((Math.random() * 10))
           setTimeout(function() { reply('SURPRISE, MOTHER FUCKER!') }, timeout)
           return "Yeah, like I'm going to eval that"
         }
@@ -46,7 +46,7 @@ var vm = require('vm');
             return function() {
               reply(speech[10 - tries])
               if (tries > 0) {
-                var timeout = 1000 *  Math.floor((Math.random() * 5))
+                var timeout = 1000 *  ~~((Math.random() * 5))
                 setTimeout(makeCallback(tries - 1), timeout)
               }
             }
@@ -62,6 +62,6 @@ var vm = require('vm');
         console.error(e)
       }
     }
-  })();
+  })()
 
-})(exports);
+})(exports)

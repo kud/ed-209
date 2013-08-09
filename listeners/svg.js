@@ -1,9 +1,9 @@
-(function(listener) {
-  listener.providesCommand = 'svg';
+;(function(listener) {
+  listener.providesCommand = 'svg'
 
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
-           this.Util.matchesCommand('svg', message);
+           this.util.matchesCommand('svg', message)
   }
 
   listener.callback = function(message, envelope) {
@@ -11,9 +11,9 @@
           'http://iconmonstr.com/',
           'http://thenounproject.com/',
           'http://icomoon.io/app/'
-        ].join('\n');
+        ].join('\n')
 
-    this.reply(envelope, speech);
+    this.reply(envelope, speech)
   }
 
-})(exports);
+})(exports)
