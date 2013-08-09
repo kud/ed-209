@@ -1,4 +1,4 @@
-(function(listener) {
+;(function(listener) {
   listener.providesCommand = 'roll'
 
   listener.matcher = function(message, envelope) {
@@ -27,4 +27,4 @@
     return param + ': ' + results + ' = ' + sum
   }
 
-})(exports);
+})(exports)

@@ -33,6 +33,7 @@ bot.join = function(channel) {
   var self = this
   console.log("  " + self.colors.blue("Joining") + " " + self.colors.yellow(channel))
   self.client.join(channel)
+  self.say(channel, self.config.helloworld)
 }
 
 bot.part = function(channel) {
