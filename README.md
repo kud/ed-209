@@ -22,7 +22,7 @@ Please, please, connect me to the woooorld.
 
 ### Copy config
 
-    cp config.json.dist config.json
+    $ cp config.json.dist config.json
 
 ### Modify the config
 
