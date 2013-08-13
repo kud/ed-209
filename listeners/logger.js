@@ -1,14 +1,9 @@
 exports.matcher = function(message, envelope) {
-  console.log([
-    envelope.type == 'notice' ? '-- ' : '',
-    envelope.from !== undefined ? envelope.from : '<server>',
-    (
-      (envelope.type == 'channel' || envelope.type == 'notice')
-      ? ' ['+envelope.to+']'
-      : ''
-    ),
-    ': ',
-    message
-  ].join(''));
-  return false;
+  var self = this
+  console.log("  " + 
+              (envelope.type == 'channel' ? self.colors.yellow(envelope.to) + ' > ' : '> ') +
+              self.colors.blue(envelope.from) +
+              ': ' +
+              message)
+  return false
 }
