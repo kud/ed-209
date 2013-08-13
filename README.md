@@ -10,11 +10,15 @@ Please, please, connect me to the woooorld.
 
 ### Clone the repo
 
-    git clone https://github.com/putaindecode/ed-209
+    $ git clone https://github.com/putaindecode/ed-209
 
 ### NPM dependencies
 
-    npm install
+    $ make install
+
+### Install and run 
+
+    $ make
 
 ### Copy config
 
@@ -26,7 +30,7 @@ Please, change my configuration (`config.json`).
 
 ### Start me!
 
-    npm start
+    $ make bot
 
 ## Contributing
 
