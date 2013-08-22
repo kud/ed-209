@@ -1,13 +1,13 @@
 var https = require('https'),
-    cheerio = require('cheerio'), 
+    cheerio = require('cheerio'),
     getUrl = /https?:\/\/\S+/g
 
 ;(function(listener) {
-  
+
   var _toString = {}.toString,
       ARRAY_CLASS = "[object Array]",
-      gitHubPattern = /https?:\/\/github.com\/([a-zA-Z0-9-_]+)\/([a-zA-Z0-9-_]+)(\/?)$/
-      
+      gitHubPattern = /https?:\/\/github.com\/([^\/]+)\/([^\/]+)(\/?)$/
+
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
            message.search('https://github.com') !== -1
@@ -37,10 +37,10 @@ var https = require('https'),
           })
 
           response.on("end", function() {
-            var $, 
-                name, 
+            var $,
+                name,
                 $socialCount, $description, $lastUpdate,
-                stars, forks, 
+                stars, forks,
                 res
             dom = dom.toString()
 
