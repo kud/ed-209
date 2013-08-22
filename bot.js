@@ -43,10 +43,6 @@ bot.say = function(to, message) {
   this.client.say(to, message)
 }
 
-bot.send = function(command, arg1) {
-  this.client.send(command, arg1)
-}
-
 bot.reply = function(envelope, message) {
   var replyTo = envelope.type == 'channel' ? envelope.to : envelope.from
 

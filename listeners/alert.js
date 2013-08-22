@@ -7,9 +7,23 @@
   }
 
   listener.callback = function(message, envelope) {
-    var args = this.util.extractParams(message, 'alert')
+    var str = this.util.removeCommand(message, 'alert'),
+        channelData = this.client.chans[envelope.to],
+        users = [],
+        u
 
-    this.send('NAMES', envelope.to)
+    for (u in channelData.users) {
+      if (u == 'ChanServ')       continue
+      if (u == envelope.from)    continue
+      if (u == this.client.nick) continue
+      users.push(u)
+    }
+
+    if (str.trim().length == 0) {
+      str = "Wake up bitches!"
+    }
+
+    this.reply(envelope, [str].concat(users).join(' '))
   }
 
 })(exports)

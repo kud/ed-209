@@ -8,7 +8,7 @@ var irc  = require('irc'),
     client,
     botInstance,
     i, l
-    
+
 function each(arr, fn, thisValue){
   var i = -1,
       l = arr.length >>> 0
@@ -58,22 +58,6 @@ client.addListener('notice', function(from, to, message) {
   botInstance.listen(message, {type: 'notice', from: from || '', to: to});
 });
 
-var namesCount = 0
-client.addListener('names', function (channel, nicks) {
-  if(namesCount < config.channels.length) { // 'names' event is triggered at the join moment, we do not want to ping everyone on join
-    namesCount++
-    return false
-  }
-
-  delete nicks[config.botName]
-  delete nicks[ChanServ]
-  var keys = []
-  for(var key in nicks){
-    keys.push(key);
-  }
-  client.say(channel, "Wake up bitches ! " + keys.join(' '))
-});
-
 client.addListener('error', function(error) {
   console.error('Error: ' + util.inspect(error))
 })
@@ -93,7 +77,7 @@ if (fs.existsSync('listeners')) {
     var listenerPath = './' + path.join('listeners', listener),
         listenerName = path.basename(listener, path.extname(listener)),
         listenerModule = require(listenerPath)
-    
+
     if (listenerModule.register !== void 0) {
       listenerModule.register(botInstance)
     } else {
