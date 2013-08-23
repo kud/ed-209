@@ -9,6 +9,12 @@ var irc  = require('irc'),
     botInstance,
     i, l
 
+Priority = {
+  HIGH:   0,
+  MEDIUM: 1,
+  LOW:    2
+}
+
 function each(arr, fn, thisValue){
   var i = -1,
       l = arr.length >>> 0

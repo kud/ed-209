@@ -59,12 +59,12 @@ bot.broadcast = function(message) {
 
 bot.listen = function(message, envelope) {
   var self = this,
-      hasMatched = false, 
-      listeners = self.listeners,
-      listener, pattern, l
+      hasMatched = false,
+      listeners = self.getListeners(),
+      listener, pattern, l, i
 
-  for (l in listeners) {
-    listener = listeners[l]
+  for (i = 0, l = listeners.length; i < l; i++) {
+    listener = listeners[i]
     if (listener.matcher.call(self, message, envelope)) {
       try {
         listener.callback.call(self, message, envelope)
@@ -79,6 +79,28 @@ bot.listen = function(message, envelope) {
   if (!hasMatched && message.match(pattern) !== null) {
     self.reply(envelope, 'Unknown command, sucker. :]')
   }
+}
+
+bot.getListeners = function() {
+  var self = this,
+      listeners = self.listeners,
+      listenersList = [],
+      priority, listener, i, l
+
+  for (l in listeners) {
+    listener = listeners[l]
+    priority = listener.priority || Priority.MEDIUM
+
+    listenersList[priority] = listenersList[priority] || []
+    listenersList[priority].push(listener)
+  }
+
+  // Fill in the gaps
+  for (i = 0, l = listenersList.length; i < l; i++) {
+    if (listenersList[i] === undefined) listenersList[i] = []
+  }
+
+  return [].concat.apply([], listenersList)
 }
 
 bot.addListener = function(name, listener) {
