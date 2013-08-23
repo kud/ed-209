@@ -15,5 +15,5 @@
   function caniuse(param) {
     return 'http://caniuse.com/#search=' + encodeURIComponent(param)
   }
-  
+
 })(exports)

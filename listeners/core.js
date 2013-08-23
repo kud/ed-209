@@ -1,8 +1,8 @@
 ;(function(listener) {
-  
+
   var _toString = {}.toString,
       ARRAY_CLASS = "[object Array]"
-  
+
   listener.register = function(bot) {
     bot.addListener('list-commands', ListCommands)
     bot.addListener('list-plugins',  ListPlugins)
@@ -16,7 +16,7 @@
     },
     callback: function(message, envelope) {
       var args = this.util.extractParams(message, 'list'),
-          keys = [], 
+          keys = [],
           listeners = this.listeners,
           key, command, speech
       for (key in listeners) {

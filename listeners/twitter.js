@@ -22,7 +22,7 @@ var https = require('https'),
   function parseURL(url, callback) {
     var dom = '', $,
         $tweet, $author, $imgUrl, tweet, imgUrl
-    
+
     // photo
     if(url.search(/photo/) > 0) {
         https.get(url, function(response) {

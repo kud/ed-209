@@ -24,7 +24,7 @@ var http = require('http'),
             reply
         dom = dom.toString()
         $ = cheerio.load(dom)
-        
+
         $playerHeader = $('.player-header')
         songName = $playerHeader.find('h1').text()
         artistName = $playerHeader.find('h2').text().replace(' by ', '')

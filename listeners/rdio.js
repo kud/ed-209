@@ -1,5 +1,5 @@
 ;(function(listener) {
-  
+
   var _underscore = /_/g
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&

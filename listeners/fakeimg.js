@@ -18,7 +18,7 @@
     if(width) url += width
     if(height) url += 'x' + height
     if(text) url += '/?text=' + encodeURIComponent(text)
-    if(font) url += '&font=' + encodeURIComponent(font) 
+    if(font) url += '&font=' + encodeURIComponent(font)
 
     return url
   }
