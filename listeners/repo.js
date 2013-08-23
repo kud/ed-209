@@ -17,7 +17,7 @@
     if (param === undefined) {
       return 'REPO OF WHAT?'
     } else if (param.match(/^[^\/]+\/[^\/]+$/) === null) {
-      return 'https://github.com/putaindecode/fuckyou'
+      return 'https://github.com/404'
     } else {
       return 'https://github.com/' + param
     }
