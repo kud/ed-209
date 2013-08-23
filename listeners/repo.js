@@ -14,7 +14,13 @@
 
 
   function repo(param) {
-    return 'https://github.com/' + param
+    if (param === undefined) {
+      return 'REPO OF WHAT?'
+    } else if (param.match(/^[^\/]+\/[^\/]+$/) === null) {
+      return 'https://github.com/putaindecode/fuckyou'
+    } else {
+      return 'https://github.com/' + param
+    }
   }
 
 })(exports)
