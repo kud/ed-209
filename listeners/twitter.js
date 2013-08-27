@@ -36,10 +36,10 @@ var https = require('https'),
           $ = cheerio.load(dom)
 
           $tweet = $('.tweet').find('.tweet-text').first()
-          $author = $('.tweet').find('.tweet-screen-name').first()
-          $imgUrl = $('.media-gallery-image-wrapper').find('.media-slideshow-image').first()
+          $author = $('.tweet').find('.username').find('b').first()
+          $imgUrl = $('.media').find('.media-thumbnail').first()
           tweet = '@' + $author.text() + ': ' + $tweet.text()
-          imgUrl = $imgUrl.attr('src')
+          imgUrl = $imgUrl.attr('data-url')
 
           tweet = tweet.replace(reTweet, "http://pic.twitter.com")
           imgUrl = imgUrl.replace(reImgUrl, "")
