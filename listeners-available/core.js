@@ -19,6 +19,7 @@
           keys = [],
           listeners = this.listeners,
           key, command, speech
+
       for (key in listeners) {
         command = listeners[key].providesCommand
 
@@ -45,8 +46,10 @@
     },
     callback: function(message, envelope) {
       var args = this.util.extractParams(message, 'list-plugins'),
-          plugins = this.plugins
-          keys = [], key, speech
+          plugins = this.plugins,
+          keys = [], 
+          key, speech
+
       for (key in plugins) {
         if (key == "list") continue
         keys.push(key)
