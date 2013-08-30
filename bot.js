@@ -69,8 +69,8 @@ bot.listen = function(message, envelope) {
       try {
         listener.callback.call(self, message, envelope)
       } catch(error) {
-        self.reply(envelope, 'Error:' + util.inspect(error))
-        console.error(error)
+        self.reply(envelope, 'Error: ' + util.inspect(error))
+        console.error(error.stack)
       }
       hasMatched = true
     }
