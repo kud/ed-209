@@ -1,7 +1,7 @@
 Bot
 ===
 
-Bot. Bot ? BOT !
+Bot. Bot? BOT!
 
 Yeah, I'm an irc bot, which aaaaall the features I should have. I'm so lovely.
 Please, please, connect me to the woooorld.
