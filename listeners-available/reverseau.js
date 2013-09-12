@@ -31,6 +31,13 @@
   replacements["MAKEFILE"] = "FICHIERFABRIQUER"
   replacements["COMMAND LINE"] = "LIGNE DE COMMANDES"
   replacements["SHELL"] = replacements["TERMINAL"] = "CMD.EXE"
+  replacements["TITS"] = replacements["BOOBS"] = "NICHONS"
+  replacements["OR"] = "OU BIEN"
+  replacements["GTFO"] = "VA LA BAISE DEHORS"
+  replacements["FAKE"] = "FAUX"
+  replacements["FUCK"] = "BAISE"
+  replacements["FAK"] = "BÈZE"
+  replacements["CRAP"] = "MERDE"
 
   for(i in replacements) {
     if(!_hasOwnProperty.call(replacements, i)) continue
