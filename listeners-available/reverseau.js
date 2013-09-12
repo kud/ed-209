@@ -55,9 +55,9 @@
   }
 
   listener.callback = function(message, envelope) {
-    var args = this.util.extractParams(message, 'reverseau')
+    var str = this.util.removeCommand(message, 'reverseau')
 
-    this.reply(envelope, reverseau.apply(this, args))
+    this.reply(envelope, reverseau.call(this, str))
   }
 
   function reverseau(param) {
