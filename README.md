@@ -8,29 +8,31 @@ Please, please, connect me to the woooorld.
 
 ## Installation
 
-### Clone the repo
+Installation is done in three simple steps:
 
-    $ git clone https://github.com/putaindecode/ed-209
+```
+# Clone the repo
+$ git clone https://github.com/putaindecode/ed-209
 
-### NPM dependencies
+# Install NPM dependencies
+$ npm install
 
-    $ make install
+# Copy and edit the config file
+$ cp config.json.dist config.json
+$ $EDITOR config.json
+```
 
-### Install and run 
+## Usage
 
-    $ make
+Start the bot by running the `index.js` file with node:
 
-### Copy config
+```
+$ node index.js
+```
 
-    $ cp config.json.dist config.json
+## Adding features
 
-### Modify the config
-
-Please, change my configuration (`config.json`).
-
-### Start me!
-
-    $ make bot
+Please [read the documentation](docs/adding_features.md)
 
 ## Contributing
 
