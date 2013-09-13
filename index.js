@@ -69,11 +69,11 @@ client.addListener('error', function(error) {
 })
 
 // Setup plugins
-if (fs.existsSync('plugins-enabled')) {
-  each(fs.readdirSync('plugins-enabled'), function(plugin) {
+if (fs.existsSync('plugins')) {
+  each(fs.readdirSync('plugins'), function(plugin) {
     if (plugin.charAt(0) == '.') return
 
-    var pluginPath = './' + path.join('plugins-enabled', plugin),
+    var pluginPath = './' + path.join('plugins', plugin),
         pluginModule = require(pluginPath)
 
     botInstance.registerPlugin(pluginModule)
@@ -81,11 +81,11 @@ if (fs.existsSync('plugins-enabled')) {
 }
 
 // Setup listeners
-if (fs.existsSync('listeners-enabled')) {
-  each(fs.readdirSync('listeners-enabled'), function(listener) {
+if (fs.existsSync('listeners')) {
+  each(fs.readdirSync('listeners'), function(listener) {
     if (listener.charAt(0) == '.') return
 
-    var listenerPath = './' + path.join('listeners-enabled', listener),
+    var listenerPath = './' + path.join('listeners', listener),
         listenerName = path.basename(listener, path.extname(listener)),
         listenerModule = require(listenerPath)
 
