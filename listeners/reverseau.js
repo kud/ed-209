@@ -57,7 +57,11 @@
   listener.callback = function(message, envelope) {
     var str = this.util.removeCommand(message, 'reverseau')
 
-    this.reply(envelope, reverseau.call(this, str))
+    if (str == '--list') {
+      this.reply(envelope, "https://github.com/putaindecode/ed-209/blob/master/listeners/reverseau.js#L9")
+    } else {
+      this.reply(envelope, reverseau.call(this, str))
+    }
   }
 
   function reverseau(param) {
