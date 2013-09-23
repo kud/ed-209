@@ -5,7 +5,8 @@ var http = require('http'),
 ;(function(listener) {
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
-           message.search('youtube.com') !== -1;
+           message.search('youtube.com') !== -1 &&
+           message.match(getUrl) !== null;
   }
 
   listener.callback = function(message, envelope) {
