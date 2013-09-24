@@ -39,6 +39,7 @@
   replacements["FAK"] = "BÈZE"
   replacements["CRAP"] = "MERDE"
   replacements["STARTUP"] = "BOITE DU DESSUS"
+  replacements["OT"] = "SUJET ÉTEINT"
 
   for(i in replacements) {
     if(!_hasOwnProperty.call(replacements, i)) continue
