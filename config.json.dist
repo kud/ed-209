@@ -1,5 +1,6 @@
 {
   "botName": "bobot",
+  "password": "NickServ password (remove to disable)",
   "channels": [
     "#bobot"
   ],

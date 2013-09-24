@@ -52,6 +52,13 @@ each(config.channels, function(channel){
 
 botInstance = bot.create(client, config)
 
+if (config.password !== undefined) {
+  client.addListener("registered", function() {
+    console.log("  " + bot.colors.blue("Registering"))
+    botInstance.say("NickServ", "identify " + config.password)
+  })
+}
+
 client.addListener('message#', function(from, to, message) {
   botInstance.listen(message, {type: 'channel', from: from, to: to})
 })
