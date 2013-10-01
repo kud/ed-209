@@ -40,6 +40,8 @@
   replacements["CRAP"] = "MERDE"
   replacements["STARTUP"] = "BOITE DU DESSUS"
   replacements["OT"] = "SUJET ÉTEINT"
+  replacements["BULLSHIT"] = "CROTTE DE TAUREAU"
+  replacements["BRAINSTORMING"] = "TEMPÊTAGE DE CERVEAU"
 
   for(i in replacements) {
     if(!_hasOwnProperty.call(replacements, i)) continue
