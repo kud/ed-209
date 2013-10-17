@@ -17,7 +17,7 @@
         ],
         finalWord = finalWords[Math.floor(Math.random() * finalWords.length)],
         intros = [
-          "vous êtes cons quand même",
+          "vous êtes cons quand même putain",
           "re"
         ],
         intro = intros[Math.floor(Math.random() * intros.length)]
