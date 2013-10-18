@@ -13,7 +13,8 @@
           "oh et puis merde",
           "oh et puis allez tous vous faire enculer",
           "lol ok",
-          "j'aurais pas du arrêter mon pomodoro"
+          "j'aurais pas du arrêter mon pomodoro",
+          "mais bordel, vos gueules"
         ],
         finalWord = finalWords[Math.floor(Math.random() * finalWords.length)],
         intros = [
