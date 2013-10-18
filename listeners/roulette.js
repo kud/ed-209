@@ -7,16 +7,19 @@
   }
 
   listener.callback = function(message, envelope) {
-    var args = this.util.extractParams(message, 'roulette')
-
-    this.reply(envelope, roulette.apply(this, args))
+    roulette.call(this, envelope)
   }
 
-  function roulette() {
+  function roulette(envelope) {
     var trigger = 4,
-        user = ~~(Math.random() * 8 + 1)
+        user = ~~(Math.random() * 8 + 1),
+        isBang = trigger === user,
+        message = isBang ? 'BANG!' : 'Click!'
 
-    return trigger === user ? 'BANG!' : 'Click!'
+    this.reply(envelope, message)
+    if (isBang) {
+      this.client.send('KICK', envelope.to, envelope.from)
+    }
   }
 
 })(exports)
