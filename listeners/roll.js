@@ -21,8 +21,13 @@
         i = -1
 
     if (diceCount > 100) {
-      return "No way dude."
+      return "That's a big bag."
     }
+
+    if (sideCount > 10000) {
+      return "Is that even a dice?!"
+    }
+
 
     while (++i < diceCount) results.push(dice(sideCount))
 
