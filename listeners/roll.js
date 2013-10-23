@@ -20,6 +20,10 @@
         results   = [],
         i = -1
 
+    if (diceCount > 100) {
+      return "No way dude."
+    }
+
     while (++i < diceCount) results.push(dice(sideCount))
 
     var sum = results.reduce(function(a, e) { return a + e })
