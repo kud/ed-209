@@ -7,7 +7,7 @@
   }
 
   listener.callback = function(message, envelope) {
-    this.client.part(envelope.to);
+    this.client.part(envelope.to)
   }
 
 })(exports)
