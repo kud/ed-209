@@ -71,6 +71,10 @@ client.addListener('notice', function(from, to, message) {
   botInstance.listen(message, {type: 'notice', from: from || '', to: to});
 });
 
+client.addListener('invite', function(channel, from, message) {
+  botInstance.listen(message, {type: 'invite', from: from || '', channel: channel});
+});
+
 client.addListener('error', function(error) {
   console.error('Error: ' + util.inspect(error))
 })
