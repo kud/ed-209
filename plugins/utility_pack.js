@@ -31,7 +31,7 @@ utilityPack.constructor.prototype = utilityPack
 //
 // <nick> must be at the start of the message
 utilityPack.commandPattern = function(command) {
-  return RegExp('^' + this.bot.client.nick + "\\s*:?\\s" + command + '(\\s|$)')
+  return RegExp('^' + this.bot.client.nick + "\\s*(?:,|:)?\\s" + command + '(\\s|$)')
 }
 
 // Returns true if a message is a command
