@@ -12,7 +12,8 @@ var https = require('https'),
 
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
-           message.search('https://github.com') !== -1
+           (message.match(repoPattern) !== null ||
+            message.match(issuePattern) !== null)
   }
 
   listener.callback = function(message, envelope) {
