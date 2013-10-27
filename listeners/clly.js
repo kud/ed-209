@@ -3,8 +3,6 @@ var http = require('http'),
     getUrl = /https?:\/\/\S+/g
 
 ;(function(listener) {
-  listener.priority = Priority.LOW
-
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
            message.search('cl.ly') !== -1 &&
