@@ -27,10 +27,11 @@ var cheerio = require('cheerio'),
         $ = cheerio.load(dom)
 
         $title = $('title').first()
-        title = 'URL: ' + $title.text().trim()
+        title = $title.text().trim()
 
         if(title !== "") {
-          self.reply(envelope, title)
+          reply = '↳ ' + title
+          self.reply(envelope, reply)
         }
       })
     })
