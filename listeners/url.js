@@ -1,5 +1,4 @@
-var http = require('http'),
-    cheerio = require('cheerio'),
+var cheerio = require('cheerio'),
     getUrl = /https?:\/\/\S+/g
 
 ;(function(listener) {
@@ -11,11 +10,12 @@ var http = require('http'),
   }
 
   listener.callback = function(message, envelope) {
-    var url = message.match(getUrl)[0].replace('https', 'http'),
-        httpClient,
+    var url = message.match(getUrl)[0],
+        proto = url.search('https') !== -1 ? 'https' : 'http',
+        httpClient = require(proto),
         self = this
 
-    http.get(url, function(response) {
+    httpClient.get(url, function(response) {
       var dom = '', $, $title, title
 
       response.on("data", function(chunk) {
@@ -27,9 +27,11 @@ var http = require('http'),
         $ = cheerio.load(dom)
 
         $title = $('title').first()
-        title = 'URL: ' + $title.text()
+        title = 'URL: ' + $title.text().trim()
 
-        self.reply(envelope, title)
+        if(title !== "") {
+          self.reply(envelope, title)
+        }
       })
     })
   }
