@@ -8,7 +8,7 @@ var https = require('https'),
   var _toString = {}.toString,
       ARRAY_CLASS = "[object Array]",
       repoPattern = /https?:\/\/github.com\/(?:[^\/]+)\/(?:[^\/]+)(?:\/?)$/,
-      issuePattern = /https?:\/\/github.com\/(?:[^\/]+)\/([^\/]+)\/issues\/(?:\d+)(\/?)$/
+      issuePattern = /https?:\/\/github.com\/(?:[^\/]+)\/([^\/]+)\/(?:issues|pull)\/(?:\d+)(\/?)$/
 
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
