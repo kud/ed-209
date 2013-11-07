@@ -4,7 +4,8 @@
     "irc": "*",
     "lodash": "*",
     "nodemon": "*",
-    "shellwords": "*"
+    "shellwords": "*",
+    "cheerio": "~0.11.0",
   },
   "scripts": {
     "start": "nodemon index.js"
@@ -15,8 +16,5 @@
   "main": "index.js",
   "repository": "",
   "author": "Erwann Mest",
-  "license": "BSD",
-  "devDependencies": {
-    "cheerio": "~0.11.0"
-  }
+  "license": "BSD"
 }
