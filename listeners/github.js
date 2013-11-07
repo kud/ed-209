@@ -6,7 +6,7 @@ var https = require('https'),
 
   var _toString = {}.toString,
       ARRAY_CLASS = "[object Array]",
-      gitHubPattern = /https?:\/\/github.com\/([^\/]+)\/([^\/]+)(\/?)$/
+      repoPattern = /https?:\/\/github.com\/(?:[^\/]+)\/(?:[^\/]+)(?:\/?)$/,
 
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
@@ -25,7 +25,7 @@ var https = require('https'),
   function parseURL(url, callback) {
 
     // Repository pattern
-    var match   = url.match(gitHubPattern)
+    var match   = url.match(repoPattern)
     if(_toString.call(match) == ARRAY_CLASS && match.length) {
 
       https.get(url, function(response) {
