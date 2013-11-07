@@ -8,7 +8,7 @@ var https = require('https'),
   var _toString = {}.toString,
       ARRAY_CLASS = "[object Array]",
       repoPattern = /https?:\/\/github.com\/(?:[^\/]+)\/(?:[^\/]+)(?:\/?)$/,
-      issuePattern = /https?:\/\/github.com\/([^\/]+)\/([^\/]+)\/issues\/(?:\d+)(\/?)$/
+      issuePattern = /https?:\/\/github.com\/(?:[^\/]+)\/([^\/]+)\/issues\/(?:\d+)(\/?)$/
 
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
@@ -99,12 +99,12 @@ var https = require('https'),
 
             $ = cheerio.load(dom)
             $discussionTitle = $('h2.discussion-topic-title')
-            $participants = $('.pull-participation .quickstat strong'),
+            $participants = $('.pull-participation .quickstat strong')
             $time = $('.discussion-topic-header time')
 
-            repo = match[1] + '/' + match[2] + ':'
+            repo = match[1] + ':'
             details = [
-              '(',
+              '(Opened ',
               moment($time.attr('datetime')).fromNow(),
               ', ',
               $participants.text(),
