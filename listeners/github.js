@@ -1,5 +1,6 @@
 var https = require('https'),
     cheerio = require('cheerio'),
+    moment = require('moment'),
     getUrl = /https?:\/\/\S+/g
 
 ;(function(listener) {
@@ -7,6 +8,7 @@ var https = require('https'),
   var _toString = {}.toString,
       ARRAY_CLASS = "[object Array]",
       repoPattern = /https?:\/\/github.com\/(?:[^\/]+)\/(?:[^\/]+)(?:\/?)$/,
+      issuePattern = /https?:\/\/github.com\/([^\/]+)\/([^\/]+)\/issues\/(?:\d+)(\/?)$/
 
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
@@ -25,7 +27,7 @@ var https = require('https'),
   function parseURL(url, callback) {
 
     // Repository pattern
-    var match   = url.match(repoPattern)
+    var match = url.match(repoPattern)
     if(_toString.call(match) == ARRAY_CLASS && match.length) {
 
       https.get(url, function(response) {
@@ -73,7 +75,56 @@ var https = require('https'),
 
       })
 
-    }
+    } // end repository pattern
+
+    // Issue pattern
+    var match = url.match(issuePattern)
+    if(_toString.call(match) == ARRAY_CLASS && match.length) {
+      https.get(url, function(response) {
+        if(response.statusCode !== 404) {
+          var dom = ''
+
+          response.on("data", function(chunk) {
+            dom += chunk
+          })
+
+          response.on("end", function() {
+            var $,
+                $discussionTitle,
+                $participants,
+                $time,
+                repo, details,
+                res
+            dom = dom.toString()
+
+            $ = cheerio.load(dom)
+            $discussionTitle = $('h2.discussion-topic-title')
+            $participants = $('.pull-participation .quickstat strong'),
+            $time = $('.discussion-topic-header time')
+
+            repo = match[1] + '/' + match[2] + ':'
+            details = [
+              '(',
+              moment($time.attr('datetime')).fromNow(),
+              ', ',
+              $participants.text(),
+              ' participants)'
+            ].join('')
+
+            res = [
+              repo,
+              $discussionTitle.text(),
+              details
+            ].join(' ')
+
+            callback(res)
+          })
+        } else { // 404
+          callback('This repository doesn\'t exist.')
+        }
+      })
+    } // end issue pattern
+
   }
 
 })(exports)
