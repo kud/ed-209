@@ -83,6 +83,7 @@ bot.listen = function(message, envelope) {
         console.error(error.stack)
       }
       hasMatched = true
+      envelope.matched = true
     }
   }
 
