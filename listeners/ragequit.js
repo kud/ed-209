@@ -15,7 +15,8 @@
           "lol ok",
           "j'aurais pas du arrêter mon pomodoro",
           "mais bordel, vos gueules",
-          "en parlant de pause"
+          "en parlant de pause",
+          "bon je vous quitte la propension à juger les autres m'hérisse le poil"
         ],
         finalWord = finalWords[Math.floor(Math.random() * finalWords.length)],
         intros = [
