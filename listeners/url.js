@@ -1,5 +1,9 @@
 var cheerio = require('cheerio'),
-    getUrl = /https?:\/\/\S+/g
+    getUrl = /https?:\/\/\S+/g,
+    contentTypes = [
+      "text/html",
+      "application/xhtml+xml"
+    ]
 
 ;(function(listener) {
   listener.priority = Priority.LOW
@@ -17,6 +21,14 @@ var cheerio = require('cheerio'),
 
     httpClient.get(url, function(response) {
       var dom = '', $, $title, title
+
+      var recognized = contentTypes.some(function(type) {
+        return response.headers["content-type"].match(type) !== null
+      })
+
+      if(!recognized) {
+        return
+      }
 
       response.on("data", function(chunk) {
         dom += chunk
