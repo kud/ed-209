@@ -19,6 +19,7 @@ var cheerio = require('cheerio'),
         httpClient = require(proto),
         self = this
 
+
     httpClient.get(url, function(response) {
       var dom = '', $, $title, title
 
@@ -46,6 +47,8 @@ var cheerio = require('cheerio'),
           self.reply(envelope, reply)
         }
       })
+    }).on("error", function() {
+      self.reply(envelope, "↳ FUCK ↲")
     })
   }
 
