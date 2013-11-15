@@ -1,4 +1,5 @@
 var cheerio = require('cheerio'),
+    util = require('util'),
     getUrl = /https?:\/\/\S+/g,
     contentTypes = [
       "text/html",
@@ -47,8 +48,8 @@ var cheerio = require('cheerio'),
           self.reply(envelope, reply)
         }
       })
-    }).on("error", function() {
-      self.reply(envelope, "↳ FUCK ↲")
+    }).on("error", function(error) {
+      console.error('Error: ' + util.inspect(error))
     })
   }
 
