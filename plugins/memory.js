@@ -18,15 +18,15 @@ memory.constructor = function(bot) {
   this.store = {}
 }
 
-memory.domain = function(domain) {
+memory.namespace = function(namespace) {
   var self = this
 
-  if (!this.get(domain)) {
-    this.set(domain, {})
+  if (!this.get(namespace)) {
+    this.set(namespace, {})
   }
 
   return {
-    _store: self.get(domain),
+    _store: self.get(namespace),
 
     set: function(key, value) {
       this._store[key] = value
