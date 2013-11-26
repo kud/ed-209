@@ -5,6 +5,9 @@ exports.name = "memory"
 
 exports.register = function(bot) {
   bot.memory = memory.create(bot)
+  if (fs.existsSync("memory.json")) {
+    bot.memory.store = JSON.parse(fs.readFileSync("memory.json"))
+  }
 }
 
 memory.create = function(){
