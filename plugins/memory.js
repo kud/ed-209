@@ -54,11 +54,13 @@ memory.get = function(key) {
 }
 
 memory.commit = function() {
+  var self = this
+
   fs.writeFile("memory.json", JSON.stringify(this.store), function(err) {
     if (err) {
       console.error(err)
     } else {
-      console.log(this.bot.colors.blue("Memory saved"))
+      console.log(self.bot.colors.blue("  Memory saved"))
     }
   })
 }
