@@ -1,9 +1,10 @@
-var memory = Object.create(null)
+var fs     = require("fs"),
+    memory = Object.create(null)
 
 exports.name = "memory"
 
 exports.register = function(bot) {
-  bot.memory = memory.create()
+  bot.memory = memory.create(bot)
 }
 
 memory.create = function(){
@@ -12,7 +13,8 @@ memory.create = function(){
   return self
 }
 
-memory.constructor = function() {
+memory.constructor = function(bot) {
+  this.bot   = bot
   this.store = {}
 }
 
@@ -22,4 +24,14 @@ memory.set = function(key, value) {
 
 memory.get = function(key) {
   return this.store[key]
+}
+
+memory.commit = function() {
+  fs.writeFile("memory.json", JSON.stringify(this.store), function(err) {
+    if (err) {
+      console.error(err)
+    } else {
+      console.log(this.bot.colors.blue("Memory saved"))
+    }
+  })
 }
