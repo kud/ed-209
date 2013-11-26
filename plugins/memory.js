@@ -18,6 +18,30 @@ memory.constructor = function(bot) {
   this.store = {}
 }
 
+memory.domain = function(domain) {
+  var self = this
+
+  if (!this.get(domain)) {
+    this.set(domain, {})
+  }
+
+  return {
+    _store: self.get(domain),
+
+    set: function(key, value) {
+      this._store[key] = value
+    },
+
+    get: function(key) {
+      return this._store[key]
+    },
+
+    commit: function() {
+      self.commit()
+    }
+  }
+}
+
 memory.set = function(key, value) {
   this.store[key] = value
 }
