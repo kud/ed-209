@@ -18,22 +18,49 @@
         diceCount = parseInt(expr[0]),
         sideCount = parseInt(expr[1]),
         results   = [],
-        i = -1
+        response  = "",
+        options   = {}
+        i
+console.log(arguments)
 
-    if (diceCount > 100) {
+    if (arguments.length >= 2) {
+      for (var i = 1, l = arguments.length; i < l; i++) {
+        var argument = arguments[i]
+
+        if (argument.slice(0, 2) == "--") {
+          options[argument.slice(2)] = true
+        }
+      }
+    }
+
+    if (diceCount > 30) {
       return "That's a big bag."
     }
 
-    if (sideCount > 10000) {
+    if (sideCount > 1000) {
       return "Is that even a dice?!"
     }
 
-
+    i = - 1
     while (++i < diceCount) results.push(dice(sideCount))
 
-    var sum = results.reduce(function(a, e) { return a + e })
 
-    return param + ': ' + results.join(', ') + ' = ' + sum
+    response = param + ': ' + results.join(', ')
+
+    if (options.total) {
+      var sum = results.reduce(function(a, e) { return a + e })
+      response += " total: " + sum
+    }
+    if (options.max) {
+      var max = results.reduce(function(a, e) { return a > e ? a : e })
+      response += " max: " + max 
+    }
+    if (options.min) {
+      var min = results.reduce(function(a, e) { return a < e ? a : e })
+      response += " min: " + min
+    }
+
+    return response
   }
 
 })(exports)
