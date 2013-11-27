@@ -6,6 +6,7 @@ exports.name = "memory"
 exports.register = function(bot) {
   bot.memory = memory.create(bot)
   if (fs.existsSync("memory.json")) {
+    console.log(bot.colors.blue("  Memory loaded from dump"))
     bot.memory.store = JSON.parse(fs.readFileSync("memory.json"))
   }
 }
