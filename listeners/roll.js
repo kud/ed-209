@@ -21,7 +21,6 @@
         response  = "",
         options   = {}
         i
-console.log(arguments)
 
     if (arguments.length >= 2) {
       for (var i = 1, l = arguments.length; i < l; i++) {
