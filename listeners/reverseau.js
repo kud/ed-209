@@ -44,7 +44,11 @@
   replacements["BRAINSTORMING"] = "TEMPÊTAGE DE CERVEAU"
   replacements["RAGEQUIT"] = "SORT DE LA RAGE"
   replacements["BLACKBERRY"] = "NÉGREAUMURE"
-
+  replacements["MIAM COCO"] = "QUI AVALE UNE NOIX DE COCO, FAIT CONFIANCE A SON ANUS !"
+  replacements["PROUT"] = "SENT L'OEUF"
+  replacements["PROUT2"] = "CA COULE, VA CHANGER TON FUT"
+  replacements["PROUT3"] = "PUTAIN IL Y EN A PLEIN LES GODASSES"
+  
   for(i in replacements) {
     if(!_hasOwnProperty.call(replacements, i)) continue
     ;(function(i){
