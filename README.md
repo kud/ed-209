@@ -32,7 +32,7 @@ $ node index.js
 
 ## Adding features
 
-Please [read the documentation](docs/adding_features.md)
+Please [read the source](README.md)
 
 ## Contributing
 
