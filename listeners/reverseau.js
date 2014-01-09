@@ -44,6 +44,7 @@
   replacements["BRAINSTORMING"] = "TEMPÊTAGE DE CERVEAU"
   replacements["RAGEQUIT"] = "SORT DE LA RAGE"
   replacements["BLACKBERRY"] = "NÉGREAUMURE"
+  replacements["KFC"] = "POULET FRIT DU KENTUCKY"
 
   for(i in replacements) {
     if(!_hasOwnProperty.call(replacements, i)) continue
