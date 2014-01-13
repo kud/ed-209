@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "bloody-class": "~1.1.0",
+    "irc": "~0.3.6",
+    "bloody-router": "~0.2.0"
+  }
+}
