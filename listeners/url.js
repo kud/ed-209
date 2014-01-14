@@ -25,27 +25,33 @@ var cheerio = require('cheerio'),
       var dom = '', $, $title, title
 
       var recognized = contentTypes.some(function(type) {
+        if (!response.headers["content-type"]) {
+          return false
+        }
         return response.headers["content-type"].match(type) !== null
       })
-
-      if(!recognized) {
-        return
-      }
 
       response.on("data", function(chunk) {
         dom += chunk
       });
 
       response.on("end", function() {
-        dom = dom.toString()
-        $ = cheerio.load(dom)
+        if (!recognized) {
+          return
+        }
+        try {
+          dom = dom.toString()
+          $ = cheerio.load(dom)
 
-        $title = $('title').first()
-        title = $title.text().trim()
+          $title = $('title').first()
+          title = $title.text().trim()
 
-        if(title !== "") {
-          reply = '↳ ' + title
-          self.reply(envelope, reply)
+          if(title !== "") {
+            reply = '↳ ' + title
+            self.reply(envelope, reply)
+          }
+        } catch (err) {
+          console.error("Error:" + util.inspect(err))
         }
       })
     }).on("error", function(error) {
