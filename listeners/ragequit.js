@@ -17,7 +17,8 @@
           "mais bordel, vos gueules",
           "en parlant de pause",
           "bon je vous quitte la propension à juger les autres m'hérisse le poil", 
-          "Tu peux modérer un peu tes propos ?" // https://github.com/putaindecode/website/issues/99#issuecomment-30603139
+          "Tu peux modérer un peu tes propos ?", // https://github.com/putaindecode/website/issues/99#issuecomment-30603139
+          "Parfois je me demande si ce salon sert vraiment à quelque chose"
         ],
         finalWord = finalWords[Math.floor(Math.random() * finalWords.length)],
         intros = [
