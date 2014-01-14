@@ -37,7 +37,7 @@ var https = require('https'),
 
           $tweet = $('.tweet').find('.tweet-text').first()
           $author = $('.tweet').find('.username').find('b').first()
-          $imgUrl = $('.media').find('.media-thumbnail').first()
+          $imgUrl = $('a.media-thumbnail').first()
           tweet = '@' + $author.text() + ': ' + $tweet.text()
           imgUrl = $imgUrl.attr('data-url')
 
