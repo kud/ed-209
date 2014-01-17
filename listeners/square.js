@@ -9,7 +9,7 @@
   listener.callback = function(message, envelope) {
     var args = this.util.extractParams(message, 'square')
 
-    if (args[0].length > 8) {
+    if (args[0].length > 20) {
       this.reply(envelope, square.call(this, "FUCK"))
     } else {
       this.reply(envelope, square.apply(this, args))
