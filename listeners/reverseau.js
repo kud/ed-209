@@ -46,6 +46,9 @@
   replacements["BLACKBERRY"] = "NÉGREAUMURE"
   replacements["KFC"] = "POULET FRIT DU KENTUCKY"
   replacements["STFU"] = "FERME LA BAISE DU DESSUS"
+  replacements["CAPTURE THE FLAG"] = "CAPUTE LE DRAPEAU"
+  replacements["CTF"] = "CAPUTE LE DRAPEAU"
+  replacements["PAINTBALL"] = "BOULEDEPEINTURE"
 
   for(i in replacements) {
     if(!_hasOwnProperty.call(replacements, i)) continue
