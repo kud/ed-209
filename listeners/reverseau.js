@@ -51,6 +51,7 @@
   replacements["RTFM"] = "LIS LE PUTAIN DE GUIDE DE L'UTILISATEUR"
   replacements["BLOWJOB"] = replacements["BJ"] = "TRAVAIL DE SOUFFLERIE"
   replacements["THE"] = "LE"
+  replacements["FACEPALM"] = "PAUME VISAGE"
 
   for(i in replacements) {
     if(!_hasOwnProperty.call(replacements, i)) continue
