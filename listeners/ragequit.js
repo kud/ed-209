@@ -16,7 +16,7 @@
           "j'aurais pas du arrêter mon pomodoro",
           "mais bordel, vos gueules",
           "en parlant de pause",
-          "bon je vous quitte la propension à juger les autres m'hérisse le poil", 
+          "bon je vous quitte la propension à juger les autres m'hérisse le poil",
           "Tu peux modérer un peu tes propos ?", // https://github.com/putaindecode/website/issues/99#issuecomment-30603139
           "Parfois je me demande si ce salon sert vraiment à quelque chose"
           // quote de l'event "Shahor lefts", avec modification de "il a" par "il y a" pour une meilleur réutilisation
@@ -25,7 +25,8 @@
         finalWord = finalWords[Math.floor(Math.random() * finalWords.length)],
         intros = [
           "vous êtes cons quand même putain",
-          "re"
+          "re",
+          "resiously"
         ],
         intro = intros[Math.floor(Math.random() * intros.length)]
 
