@@ -52,6 +52,10 @@
   replacements["BLOWJOB"] = replacements["BJ"] = "TRAVAIL DE SOUFFLERIE"
   replacements["THE"] = "LE"
   replacements["FACEPALM"] = "PAUME VISAGE"
+  replacements["WOW"] = "OUAH"
+  replacements["SUCH"] = "TANT"
+  replacements["VERY"] = "BEAUCOUP"
+  replacements["DOGE"] = "CHIENE"
 
   for(i in replacements) {
     if(!_hasOwnProperty.call(replacements, i)) continue
