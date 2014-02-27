@@ -7,7 +7,7 @@
   }
 
   listener.callback = function(message, envelope) {
-    this.reply(envelope, 'De rine.')
+    this.reply(envelope, 'de rine')
   }
 
 })(exports)
