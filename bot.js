@@ -89,7 +89,7 @@ bot.listen = function(message, envelope) {
 
   pattern = self.util.commandPattern('.+')
   if (!hasMatched && message.match(pattern) !== null) {
-    self.reply(envelope, 'Unknown command, sucker. :]')
+    self.reply(envelope, 'unknown command, sucker :]')
   }
 }
 
