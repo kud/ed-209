@@ -2,7 +2,7 @@
   "botName": "Bot name (nick)",
   "password": "NickServ password (remove to disable)",
   "channels": [
-    "#bobot"
+    "#ed-209-arena"
   ],
   "server": "irc.freenode.net",
   "flood": {
