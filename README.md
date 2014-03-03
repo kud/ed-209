@@ -6,6 +6,8 @@ Bot. Bot? BOT!
 Yeah, I'm an irc bot, which aaaaall the features I should have. I'm so lovely.
 Please, please, connect me to the woooorld.
 
+<img height="200" src="https://raw2.github.com/putaindecode/ed-209/master/preview.jpg">
+
 ## Installation
 
 Installation is done in three simple steps:
