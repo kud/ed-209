@@ -1,12 +1,18 @@
 Bot
 ===
 
+<img height="200" align="right" src="https://raw2.github.com/putaindecode/ed-209/master/preview.jpg">
+
 Bot. Bot? BOT!
 
 Yeah, I'm an irc bot, which aaaaall the features I should have. I'm so lovely.
 Please, please, connect me to the woooorld.
 
-<img height="200" src="https://raw2.github.com/putaindecode/ed-209/master/preview.jpg">
+<br>
+<br>
+<br>
+<br>
+<br>
 
 ## Installation
 
