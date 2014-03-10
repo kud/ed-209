@@ -1,3 +1,7 @@
+function getRandomInt( min, max ) {
+  return Math.floor( Math.random() * ( max - min + 1 ) ) + min
+}
+
 ;(function(listener) {
   listener.matcher = function(message, envelope) {
     var regEx = 'merci ' + this.client.opt.nick
@@ -7,7 +11,11 @@
   }
 
   listener.callback = function(message, envelope) {
-    this.reply(envelope, 'de rine')
+    var self = this
+
+    setTimeout(function() {
+      self.reply(envelope, 'de rine')
+    }, getRandomInt(0, 5000))
   }
 
 })(exports)

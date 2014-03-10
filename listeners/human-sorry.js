@@ -1,3 +1,7 @@
+function getRandomInt( min, max ) {
+  return Math.floor( Math.random() * ( max - min + 1 ) ) + min
+}
+
 ;(function(listener) {
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
@@ -12,7 +16,11 @@
   }
 
   listener.callback = function(message, envelope) {
-    this.reply(envelope, '¯\\_(ツ)_/¯')
+    var self = this
+
+    setTimeout(function() {
+      self.reply(envelope, '¯\\_(ツ)_/¯')
+    }, getRandomInt(0, 5000))
   }
 
 })(exports)

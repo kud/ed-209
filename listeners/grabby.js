@@ -1,4 +1,3 @@
-
 var http = require('http'),
     cheerio = require('cheerio'),
     getUrl = /https?:\/\/\S+/g

@@ -3,7 +3,6 @@ var util = require('util'),
 
 // The main bot object
 
-
 // Create a new bot
 bot.create = function(){
   var self = Object.create(this)
