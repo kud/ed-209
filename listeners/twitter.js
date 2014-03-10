@@ -70,6 +70,7 @@ var https = require('https'),
             $tweet = $('.opened-tweet').find('.js-tweet-text').first()
             $author = $('.permalink-tweet-container').first().find('.js-action-profile-name b').first()
             tweet = '@' + $author.text() + ': ' + $tweet.text()
+            tweet = tweet.replace(reTweet, "http://pic.twitter.com")
 
             callback(tweet)
           })
