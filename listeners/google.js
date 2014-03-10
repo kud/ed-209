@@ -1,3 +1,6 @@
+var https = require('https'),
+    cheerio = require('cheerio')
+
 ;(function(listener) {
   listener.providesCommand = 'google'
 
@@ -8,11 +11,39 @@
 
   listener.callback = function(message, envelope) {
     var args = this.util.extractParams(message, 'google')
+      , url = 'https://www.google.com/search?q=' + encodeURIComponent(args)
+      , self = this
 
-    this.reply(envelope, google.call(this, args))
+    https.get(url, function(response) {
+      var dom = '', $
+
+      response.on("data", function(chunk) {
+        dom += chunk
+      })
+
+      response.on("end", function() {
+        var $results
+          , titleResult
+          , urlResult
+
+        dom = dom.toString()
+        $ = cheerio.load(dom)
+        $results = $('#search .g')
+
+        $results.each( function(){
+          var $a = $(this).find('h3 a')
+          titleResult = $a.text()
+          urlResult = $a.attr('href')
+
+          urlResult = urlResult.replace(/\/url\?q=/i, '')
+          urlResult = urlResult.split('&sa=')[0]
+
+          self.reply(envelope, titleResult + ': ' + urlResult)
+        })
+
+      })
+    })
+
   }
 
-  function google(param) {
-    return 'https://www.google.com/search?q=' + encodeURIComponent(param)
-  }
 })(exports)
