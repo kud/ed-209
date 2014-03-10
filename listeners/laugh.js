@@ -13,7 +13,7 @@
       "haha",
       "j'ai ri aussi !"
     ],
-    finalWord = finalWords[Math.floor(Math.random() * finalWords.length)],
+    finalWord = finalWords[Math.floor(Math.random() * finalWords.length)]
 
     this.reply(envelope, finalWord)
   }
