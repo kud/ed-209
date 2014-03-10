@@ -17,5 +17,9 @@
   "main": "index.js",
   "repository": "",
   "author": "Erwann Mest",
-  "license": "BSD"
+  "license": "BSD",
+  "devDependencies": {
+    "nodemon": "^1.0.15",
+    "forever": "^0.10.11"
+  }
 }
