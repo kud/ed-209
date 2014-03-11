@@ -13,21 +13,16 @@ function getRandomInt( min, max ) {
   }
 
   listener.callback = function(message, envelope) {
-    var user = ~~(Math.random() * 3 + 1)
+    var user = ~~(Math.random() * 4 + 1)
       , trigger = 2
       , isBang = trigger === user
 
     var self = this
       , finalWords = [
-      "drôle !",
-      "haha",
-      "mdr",
-      "lol",
-      "rofl",
-      "hihi",
-      "j'ai ri aussi"
-    ],
-    finalWord = finalWords[Math.floor(Math.random() * finalWords.length)]
+          ':)',
+          ':D'
+        ],
+        finalWord = finalWords[Math.floor(Math.random() * finalWords.length)]
 
     if(isBang)
       setTimeout(function() {
