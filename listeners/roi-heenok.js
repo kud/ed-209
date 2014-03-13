@@ -5,30 +5,17 @@ function getRandomInt( min, max ) {
   return Math.floor( Math.random() * ( max - min + 1 ) ) + min
 }
 
-function getSentence( $results ) {
-  var content = ""
-
-  $result = $results.eq(getRandomInt(1, $results.length - 1)).find('td').eq(1)
-  content = $result.text()
-
-  if ( content.match(/Script|^\s+$/) ) {
-    return getSentence( $results )
-  }
-
-  return content
-}
-
 ;(function(listener) {
-  listener.providesCommand = 'classe-americaine'
+  listener.providesCommand = 'roi-heenok'
 
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
-           this.util.matchesCommand('classe-americaine', message)
+           this.util.matchesCommand('roi-heenok', message)
   }
 
   listener.callback = function(message, envelope) {
-    var args = this.util.extractParams(message, 'classe-americaine')
-      , url = 'http://cyclim.se/script.html'
+    var args = this.util.extractParams(message, 'roi-heenok')
+      , url = 'http://www.roi-heenok.com/citations-roi-heenok-' + getRandomInt( 1, 22 ) + '.html'
       , self = this
 
     http.get(url, function(response) {
@@ -45,9 +32,10 @@ function getSentence( $results ) {
 
         dom = dom.toString()
         $ = cheerio.load(dom)
-        $results = $('.script tr')
+        $results = $('ul.citations_block li')
 
-        content = getSentence( $results )
+        $result = $results.eq(getRandomInt(1, $results.length - 1))
+        content = $result.text()
 
         self.reply(envelope, content)
       })
