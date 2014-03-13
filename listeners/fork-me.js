@@ -1,13 +1,13 @@
 ;(function(listener) {
-  listener.providesCommand = 'showmewhoyouare'
+  listener.providesCommand = 'fork-me'
 
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
-           this.util.matchesCommand('showmewhoyouare', message)
+           this.util.matchesCommand('fork-me', message)
   }
 
   listener.callback = function(message, envelope) {
-    var speech = 'https://raw2.github.com/putaindecode/ed-209/master/preview.jpg'
+    var speech = 'Please, please, please https://github.com/putaindecode/ed-209'
 
     this.reply(envelope, speech)
   }

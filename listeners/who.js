@@ -1,13 +1,13 @@
 ;(function(listener) {
-  listener.providesCommand = 'forkyou'
+  listener.providesCommand = 'who'
 
   listener.matcher = function(message, envelope) {
     return (envelope.type == 'channel') &&
-           this.util.matchesCommand('forkyou', message)
+           this.util.matchesCommand('who', message)
   }
 
   listener.callback = function(message, envelope) {
-    var speech = 'Please, please, please https://github.com/putaindecode/ed-209'
+    var speech = 'https://raw2.github.com/putaindecode/ed-209/master/preview.jpg'
 
     this.reply(envelope, speech)
   }
