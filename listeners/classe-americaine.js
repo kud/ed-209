@@ -5,6 +5,19 @@ function getRandomInt( min, max ) {
   return Math.floor( Math.random() * ( max - min + 1 ) ) + min
 }
 
+function getSentence( $results ) {
+  var content = ""
+
+  $result = $results.eq(getRandomInt(1, $results.length - 1)).find('td').eq(1)
+  content = $result.text()
+
+  if ( content.match(/Script|^\s+$/) ) {
+    return getSentence( $results )
+  }
+
+  return content
+}
+
 ;(function(listener) {
   listener.providesCommand = 'google'
 
@@ -34,9 +47,7 @@ function getRandomInt( min, max ) {
         $ = cheerio.load(dom)
         $results = $('.script tr')
 
-        $result = $results.eq(getRandomInt(1, $results.length - 1)).find('td').eq(1)
-
-        content = $result.text()
+        content = getSentence( $results )
 
         self.reply(envelope, content)
       })
