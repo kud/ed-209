@@ -22,6 +22,7 @@
           // quote de l'event "Shahor lefts", avec modification de "il a" par "il y a" pour une meilleur réutilisation
           , "visiblement il y a un truc contre moi que je ne comprends pas bien, mais qui existe"
           , "bref j'ai des kiwi à planter"
+          , "whatever"
         ],
         finalWord = finalWords[Math.floor(Math.random() * finalWords.length)],
         intros = [
