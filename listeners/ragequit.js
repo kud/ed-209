@@ -23,6 +23,7 @@
           , "visiblement il y a un truc contre moi que je ne comprends pas bien, mais qui existe"
           , "bref j'ai des kiwi à planter"
           , "whatever"
+          , "bon je vais finir mon grillage :)"
         ],
         finalWord = finalWords[Math.floor(Math.random() * finalWords.length)],
         intros = [
