@@ -4,7 +4,7 @@ function getRandomInt( min, max ) {
 
 ;(function(listener) {
   listener.matcher = function(message, envelope) {
-    var regEx = '(th(ansk|x)|merci) ' + this.client.opt.nick
+    var regEx = '(th(anks|x)|merci) ' + this.client.opt.nick
 
     return (envelope.type == 'channel') &&
            (message.match(regEx, 'i') !== null)
