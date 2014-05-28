@@ -25,6 +25,7 @@
           , "whatever"
           , "bon je vais finir mon grillage :)"
           , "j'vous encule"
+          , "merci tout de même, bonne soirée"
         ],
         finalWord = finalWords[Math.floor(Math.random() * finalWords.length)],
         intros = [
