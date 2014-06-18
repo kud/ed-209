@@ -39,6 +39,13 @@
       return
     }
 
+    if (str.trim().substr(0,2) == "--") {
+      mem.set(envelope.from, false)
+      mem.commit()
+      this.reply(envelope, envelope.from + ": lolwut? unknown argument, noob")
+      return
+    }
+
     this.reply(envelope, users.join(' '))
     this.reply(envelope, str)
   }
