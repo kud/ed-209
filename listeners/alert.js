@@ -35,7 +35,7 @@
     if (str.trim() == "--unsubscribe") {
       mem.set(envelope.from, false)
       mem.commit()
-      this.reply(envelope, envelope.from + ": pussy!")
+      this.reply(envelope, envelope.from + ": sorry to see you go :(")
       return
     }
 
