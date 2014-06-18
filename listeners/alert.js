@@ -28,7 +28,7 @@
     if (str.trim() == "--subscribe") {
       mem.set(envelope.from, true)
       mem.commit()
-      this.reply(envelope, envelope.from + ": welcome back to the game!")
+      this.reply(envelope, envelope.from + ": welcome back!")
       return
     }
 
