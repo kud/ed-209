@@ -6,7 +6,8 @@
     "nodemon": "*",
     "shellwords": "*",
     "cheerio": "~0.11.0",
-    "moment": "*"
+    "moment": "*",
+    "request": "*"
   },
   "scripts": {
     "start": "nodemon index.js"
