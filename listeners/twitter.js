@@ -21,7 +21,7 @@ var https = require('https'),
 
   function parseURL(url, callback) {
     var dom = '', $,
-        $tweet, $author, $imgUrl, tweet, imgUrl
+        $tweet, $author, $imgUrl, tweet, imgUrl, $title
 
     // photo
     if(url.search(/photo/) > 0) {
@@ -78,6 +78,26 @@ var https = require('https'),
       })
     }
 
+    // search: only show the title of the page, no sense getting a specific tweet
+    else if(url.search(/search/) > 0) {
+      https.get(url, function(response) {
+        dom = ''
+
+        response.on("data", function(chunk) {
+          dom += chunk;
+        })
+
+        response.on("end", function() {
+          dom = dom.toString()
+          $ = cheerio.load(dom)
+
+          $title = $('title').text()
+
+          callback($title)
+        })
+      })
+    }
+
     // bio
     else {
       https.get(url, function(response) {
@@ -91,9 +111,9 @@ var https = require('https'),
           dom = dom.toString()
           $ = cheerio.load(dom)
 
-          $tweet = $('.profile-header').first().find('.bio-container .bio').first()
-          $author = $('.profile-header').first().find('.screen-name').first()
-          tweet = $author.text() + ': ' + $tweet.text()
+          $tweet = $('.ProfileHeaderCard').first().find('.ProfileHeaderCard-bio').first()
+          $author = $('.ProfileHeaderCard').first().find('.ProfileHeaderCard-name').first()
+          tweet = $author.text().trim() + ': ' + $tweet.text().trim()
 
           callback(tweet)
         })
