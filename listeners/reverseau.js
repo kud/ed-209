@@ -24,6 +24,8 @@
   replacements["WAT"] = replacements["WUT"] = replacements["WOOT"] = "QOI"
   replacements["BITCH"] = "SALOPE"
   replacements["UMAD"] = "TU FOU"
+  replacements["U MAD"] = "TU FOU"
+  replacements["U RULE"] = "TU RÈGNES"
   replacements["WHOSMAD"] = "QUI FOU"
   replacements["GRUNT"] = "GROGNEMENT"
   replacements["MAKE"] = "FABRIQUER"
