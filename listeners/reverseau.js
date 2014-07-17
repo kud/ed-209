@@ -24,8 +24,8 @@
   replacements["WAT"] = replacements["WUT"] = replacements["WOOT"] = "QOI"
   replacements["BITCH"] = "SALOPE"
   replacements["UMAD"] = "TU FOU"
-  replacements["U MAD"] = "TU FOU"
-  replacements["U RULE"] = "TU RÈGNES"
+  replacements["MAD"] = "FOU"
+  replacements["RULE"] = "RÈGNES"
   replacements["WHOSMAD"] = "QUI FOU"
   replacements["GRUNT"] = "GROGNEMENT"
   replacements["MAKE"] = "FABRIQUER"
@@ -58,6 +58,7 @@
   replacements["SUCH"] = "TANT"
   replacements["VERY"] = "BEAUCOUP"
   replacements["DOGE"] = "CHIENE"
+  replacements["U"] = "TU"
 
   for(i in replacements) {
     if(!_hasOwnProperty.call(replacements, i)) continue
