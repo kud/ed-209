@@ -5,6 +5,8 @@
     "#ed-209-arena"
   ],
   "server": "irc.freenode.net",
+  "ssl": false,
+  "port": 6667,
   "flood": {
     "protection": true,
     "delay": 500

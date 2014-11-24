@@ -43,7 +43,9 @@ else {
 client = new irc.Client(config.server, config.botName, {
     channels: config.channels,
     floodProtection: config.flood.protection,
-    floodProtectionDelay: config.flood.delay
+    floodProtectionDelay: config.flood.delay,
+    secure: config.ssl,
+    port: config.port
 })
 
 each(config.channels, function(channel){
