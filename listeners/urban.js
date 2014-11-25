@@ -30,9 +30,9 @@ var http = require('http'),
             word, definition, example,
             reply
 
-        if (res.list.length == 0)
+        if (res.list.length == 0) {
           reply = "Nope!"
-        else {
+        } else {
           word = res.list[0].word.replace(reNoLineBreak, "")
           definition = res.list[0].definition.replace(reNoLineBreak, "  ")
           example = res.list[0].example.replace(reNoLineBreak, "  ")
