@@ -13,7 +13,7 @@ function getRandomInt( min, max ) {
     var self = this
 
     setTimeout(function() {
-      self.reply(envelope, '\\m/')
+      self.reply(envelope, '\\n/')
     }, getRandomInt(0, 5000))
   }
 
