@@ -37,6 +37,8 @@
           // quote de l'event "Shahor lefts", avec modification de "il a" par "il y a" pour une meilleur réutilisation
           "visiblement il y a un truc contre moi que je ne comprends pas bien, mais qui existe",
           
+          // https://twitter.com/NASIRHEAT/status/574575661098078209
+          "JE VOUS CHIE SUR LA GEULLE AU CALME AVEC UN THÉ FRAIS",
         ],
         finalWord = finalWords[Math.floor(Math.random() * finalWords.length)],
         intros = [
