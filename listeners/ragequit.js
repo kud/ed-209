@@ -39,6 +39,9 @@
           
           // https://twitter.com/NASIRHEAT/status/574575661098078209
           "JE VOUS CHIE SUR LA GEULLE AU CALME AVEC UN THÉ FRAIS",
+          
+          // http://f.cl.ly/items/143N0j3N3l3f1H0e3O1K/Image%202015-03-17%20at%2010.16.06%20am.png
+          "Hello, j'crois que je vais arrêter l'aventure p!, ca commence à me gonfler sérieusement"
         ],
         finalWord = finalWords[Math.floor(Math.random() * finalWords.length)],
         intros = [
