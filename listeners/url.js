@@ -24,6 +24,11 @@ var cheerio = require('cheerio'),
     httpClient.get(url, function(response) {
       var dom = '', $, $title, title
 
+      if (response.statusCode > 300 && response.statusCode < 400 && response.headers.location) {
+        listener.callback.call(self, response.headers.location, envelope)
+        return
+      }
+
       var recognized = contentTypes.some(function(type) {
         if (!response.headers["content-type"]) {
           return false
