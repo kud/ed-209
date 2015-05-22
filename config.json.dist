@@ -11,5 +11,7 @@
     "protection": true,
     "delay": 500
   },
-  "api_key": "SEKRET"
+  "api_keys": {
+    "imgur_client_id" : "62cfa9f704c3945"
+  }
 }
