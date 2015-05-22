@@ -9,7 +9,7 @@ var http = require('http')
     }
 
   listener.callback = function(message, envelope) {
-    var pattern = RegExp('https?://(?:www\\.)imdb\.com/title/([^/]+)/'),
+    var pattern = RegExp('https?://(?:www\\.)imdb\.com/title/([^/]+)/?'),
     match = message.match(pattern),
     url = "http://www.myapifilms.com/imdb?format=JSON&lang=en-us&actors=S&idIMDB=",
     idIMDB,
