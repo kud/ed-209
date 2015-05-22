@@ -45,7 +45,12 @@ client = new irc.Client(config.server, config.botName, {
     floodProtection: config.flood.protection,
     floodProtectionDelay: config.flood.delay,
     secure: config.ssl,
-    port: config.port
+    sasl: config.sasl,
+    userName: config.botName,
+    password: config.password,
+    port: config.port,
+    messageSplit: 1024,
+    encoding: "UTF-8"
 })
 
 each(config.channels, function(channel){

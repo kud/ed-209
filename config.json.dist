@@ -7,10 +7,12 @@
   "server": "irc.freenode.net",
   "ssl": false,
   "port": 6667,
+  "sasl": false,
   "flood": {
     "protection": true,
     "delay": 500
   },
+  "debug": false,
   "api_keys": {
     "imgur_client_id" : "62cfa9f704c3945"
   }
