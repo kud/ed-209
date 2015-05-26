@@ -59,6 +59,8 @@
   replacements["VERY"] = "BEAUCOUP"
   replacements["DOGE"] = "CHIENE"
   replacements["U"] = "TU"
+  replacements["4REAL"] = "4VRAI"
+  replacements["4 REAL"] = "4 VRAI"
 
   for(i in replacements) {
     if(!_hasOwnProperty.call(replacements, i)) continue
