@@ -1,12 +1,12 @@
 {
   "name": "ed-209",
   "dependencies": {
-    "irc": "*",
-    "lodash": "*",
-    "nodemon": "*",
-    "shellwords": "*",
-    "cheerio": "~0.11.0",
-    "moment": "*"
+    "cheerio": "0.19.0",
+    "irc": "0.4.0",
+    "lodash": "3.10.1",
+    "moment": "2.10.6",
+    "nodemon": "1.8.1",
+    "shellwords": "0.1.0"
   },
   "scripts": {
     "start": "nodemon index.js"
@@ -19,7 +19,7 @@
   "author": "Erwann Mest",
   "license": "BSD",
   "devDependencies": {
-    "nodemon": "^1.0.15",
-    "forever": "^0.10.11"
+    "nodemon": "1.8.1",
+    "forever": "0.15.1"
   }
 }

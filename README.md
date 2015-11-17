@@ -1,6 +1,6 @@
 # Bot
 
-<img height="200" align="right" src="https://raw2.github.com/putaindecode/ed-209/master/preview.jpg">
+<img height="200" align="right" src="preview.jpg">
 
 Bot. Bot? BOT!
 
@@ -18,19 +18,19 @@ Installation is done in three simple steps:
 
 #### Clone the repo
 
-```
+```console
 $ git clone https://github.com/putaindecode/ed-209
 ```
 
 #### Run the installation
 
-```
+```console
 $ make install
 ```
 
 #### Edit the config file
 
-```
+```console
 $ $EDITOR config.json
 ```
 
@@ -38,7 +38,7 @@ $ $EDITOR config.json
 
 Start the bot:
 
-```
+```console
 $ make start
 ```
 
