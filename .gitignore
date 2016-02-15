@@ -1,5 +1,6 @@
 node_modules
 config.json
+memory.json
 listeners-enabled/*
 plugins-enabled/*
 !listeners-enabled/.gitkeep
