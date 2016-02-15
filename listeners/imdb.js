@@ -1,4 +1,11 @@
-var http = require('http')
+var http = require('http'),
+    fs   = require('fs'),
+    config
+
+if (fs.existsSync('config.json')) {
+  config = JSON.parse(fs.readFileSync('config.json'))
+}
+
 
 ;(function(listener) {
 
@@ -10,14 +17,16 @@ var http = require('http')
 
   listener.callback = function(message, envelope) {
     var pattern = RegExp('https?://(?:www\\.)imdb\.com/title/([^/]+)/?'),
-    match = message.match(pattern),
-    url = "http://www.myapifilms.com/imdb?format=JSON&lang=en-us&actors=S&idIMDB=",
-    idIMDB,
-    self = this
+        match = message.match(pattern),
+        token = config.api_keys.my_api_films,
+        options = "&format=json&language=en-us&actors=1",
+        url = "http://www.myapifilms.com/imdb/idIMDB?",
+        idIMDB,
+        self = this
 
     if (match) {
       idIMDB = decodeURIComponent(match[1].replace(_underscore, ' ')),
-      url += idIMDB
+      url += "idIMDB=" + idIMDB + "&token=" + token + options
 
       http.get(url, function(response) {
         var json = ''
@@ -35,26 +44,28 @@ var http = require('http')
               i,
               reply = ''
 
-          if (res.title) {
-            reply += '↳ ' + res.title
-          }
+          res.data.movies.forEach(function(movie) {
+            if (movie.title) {
+              reply += '↳ ' + movie.title
+            }
 
-          if (res.year) {
-            reply += ' (' + res.year + ') '
-          }
+            if (movie.year) {
+              reply += ' (' + movie.year + ') '
+            }
 
-          if (res.rating) {
-            reply += res.rating + '★ '
-          }
+            if (movie.rating) {
+              reply += movie.rating + '★ '
+            }
 
-          if (res.actors) {
-            reply += ' - '
-            for (i = 0; i < 3; i++) {
-              if (res.actors[i]) {
-                reply += res.actors[i].actorName + ', '
+            if (movie.actors) {
+              reply += ' - '
+              for (i = 0; i < 4; i++) {
+                if (movie.actors[i]) {
+                  reply += movie.actors[i].actorName + ', '
+                }
               }
             }
-          }
+          })
 
           if (reply) {
             self.reply(envelope, reply)

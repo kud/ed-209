@@ -14,6 +14,8 @@
   },
   "debug": false,
   "api_keys": {
-    "imgur_client_id" : "62cfa9f704c3945"
+    "imgur_client_id": "",
+    "imgur_client_secret": "",
+    "my_api_films": ""
   }
 }
