@@ -9,10 +9,10 @@ import chalk from 'chalk'
 
 // Load configuration
 if (!fs.existsSync('config.json')) {
-  console.error('Wow, wow, wow! Please, have a `config.json` for fuck\'s sake!')
+  console.error(chalk.red('Wow, wow, wow! Please, have a `config.json` for fuck\'s sake!'))
   process.exit(1)
 }
-import config from './config.json'
+const config = require('./config.json')
 
 import * as plugins from './plugins'
 
@@ -58,8 +58,8 @@ client.addListener('message', (from, to, message) => {
     }
 
     const plainCommand = catchedCommand[1]
-    const params = shellwords.split(plainCommand)
-    const commandName = params.shift()
+    const args = shellwords.split(plainCommand)
+    const commandName = args.shift()
     const command = bot.commands[commandName]
 
     if (!command) {
@@ -73,7 +73,8 @@ client.addListener('message', (from, to, message) => {
     }
 
     try {
-      command.handler({client, from, to, message}, ...params)
+      const envelope = {client, from, to, message}
+      command.handler(envelope, ...args)
     } catch (e) {
       client.say(to, 'Hmm, seems like I fucked up, again')
       console.error(`[ERROR] [${commandName}] ${e}`)

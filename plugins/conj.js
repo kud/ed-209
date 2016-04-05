@@ -1,7 +1,8 @@
-function conj(command, ...params) {
-  const reply = 'http://leconjugueur.lefigaro.fr/conjugaison/verbe/' + encodeURIComponent(params.join(' ')) + '.html';
+function conj(envelope, ...args) {
+  const {client, to} = envelope
+  const reply = 'http://leconjugueur.lefigaro.fr/conjugaison/verbe/' + encodeURIComponent(args.join(' ')) + '.html';
 
-  command.client.say(command.to, reply)
+  client.say(to, reply)
 }
 
 export default function register(bot) {
