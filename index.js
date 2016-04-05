@@ -37,7 +37,14 @@ const config = require('./config.json')
 const client = new irc.Client(config.server, config.nick, {
   channels: config.channels,
   floodProtection: config.flood.protection,
-  floodProtectionDelay: config.flood.delay
+  floodProtectionDelay: config.flood.delay,
+  secure: config.ssl,
+  sasl: config.sasl,
+  userName: config.nick,
+  password: config.password,
+  port: config.port,
+  messageSplit: 1024,
+  encoding: "UTF-8"
 })
 
 // Register activated plugins
@@ -90,6 +97,14 @@ client.addListener('message', (from, to, message) => {
     }
   }
 })
+
+
+if (config.password !== undefined) {
+  client.addListener('registered', () => {
+    bot.info('Registering')
+    client.say('NickServ', `identify ${config.password}`)
+  })
+}
 
 client.addListener('pm', (from, message) => {
   console.log(chalk.yellow.bold(`PM ${from}: ${message}`))
