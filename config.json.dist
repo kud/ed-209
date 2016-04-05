@@ -14,6 +14,7 @@
   },
   "plugins": [
     "conj": {},
-    "fakeimg": {}
+    "fakeimg": {},
+    "forkyou": {}
   ]
 }
