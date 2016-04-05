@@ -7,7 +7,7 @@ import irc from 'irc'
 import shellwords from 'shellwords'
 import chalk from 'chalk'
 
-import * as plugins from './plugins'
+import * as plugins from './lib/plugins'
 
 // The Bot
 const bot = {
