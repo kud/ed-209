@@ -86,6 +86,12 @@ client.addListener('pm', (from, message) => {
   console.log(chalk.yellow.bold(`PM ${from}: ${message}`))
 })
 
+client.addListener('join', (channel, nick) => {
+  if (nick === config.nick) {
+   console.log(chalk.gray(`[INFO] Joining ${channel}`))
+  }
+})
+
 client.addListener('error', (error) => {
   console.error(chalk.red(`[ERROR] ${util.inspect(error)}`))
 })
