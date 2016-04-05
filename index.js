@@ -1,118 +1,93 @@
-// Imports
-var irc  = require('irc'),
-    fs   = require('fs'),
-    path = require('path'),
-    util = require('util'),
-    bot  = require('./bot.js'),
-    config,
-    client,
-    botInstance,
-    i, l
+#!/usr/bin/env node
 
-Priority = {
-  HIGH:   0,
-  MEDIUM: 1,
-  LOW:    2
-}
+import fs from 'fs'
+import path from 'path'
+import util from 'util'
+import irc from 'irc'
+import shellwords from 'shellwords'
+import chalk from 'chalk'
 
-function each(arr, fn, thisValue){
-  var i = -1,
-      l = arr.length >>> 0
-  if(arguments.length > 2) {
-    while(++i < l) if(fn.call(thisValue, arr[i], i, arr) === false) break
-  } else {
-    while(++i < l) if(fn(arr[i], i, arr) === false) break
-  }
-  return arr
-}
-
-console.log("  " + bot.colors.blue("ed-209") + " - " + bot.colors.yellow("{P!}"))
-console.log("  ...")
-
-
-// Load the config.json file if it exists
-if (fs.existsSync('config.json')) {
-  config = JSON.parse(fs.readFileSync('config.json'))
-}
-else {
+// Load configuration
+if (!fs.existsSync('config.json')) {
   console.error('Wow, wow, wow! Please, have a `config.json` for fuck\'s sake!')
   process.exit(1)
 }
+import config from './config.json'
 
-// IRC client
-client = new irc.Client(config.server, config.botName, {
-    channels: config.channels,
-    floodProtection: config.flood.protection,
-    floodProtectionDelay: config.flood.delay,
-    secure: config.ssl,
-    sasl: config.sasl,
-    userName: config.botName,
-    password: config.password,
-    port: config.port,
-    messageSplit: 1024,
-    encoding: "UTF-8"
-})
+import * as plugins from './plugins'
 
-each(config.channels, function(channel){
-  console.log("  " + bot.colors.blue("Joining") + " " + bot.colors.yellow(channel))
-})
+// The Bot
+const bot = {
+  commands: {},
 
-botInstance = bot.create(client, config)
-
-if (config.password !== undefined) {
-  client.addListener("registered", function() {
-    console.log("  " + bot.colors.blue("Registering"))
-    botInstance.say("NickServ", "identify " + config.password)
-  })
+  addCommand(command, handler, contexts = {channel: true}) {
+    this.commands[command] = {handler, contexts}
+  }
 }
 
-client.addListener('message#', function(from, to, message) {
-  botInstance.listen(message, {type: 'channel', from: from, to: to})
+// IRC Client
+const client = new irc.Client(config.server, config.botName, {
+  channels: config.channels,
+  floodProtection: config.flood.protection,
+  floodProtectionDelay: config.flood.delay
 })
 
-client.addListener('pm', function(from, message) {
-  botInstance.listen(message, {type: 'pm', from: from})
-})
+// Register activated plugins
+for (const pluginName in plugins) {
+  const plugin = plugins[pluginName]
 
-client.addListener('notice', function(from, to, message) {
-  botInstance.listen(message, {type: 'notice', from: from || '', to: to})
-});
-
-client.addListener('invite', function(channel, from, message) {
-  botInstance.listen(message, {type: 'invite', from: from || '', channel: channel})
-});
-
-client.addListener('error', function(error) {
-  console.error('Error: ' + util.inspect(error))
-})
-
-// Setup plugins
-if (fs.existsSync('plugins')) {
-  each(fs.readdirSync('plugins'), function(plugin) {
-    if (plugin.charAt(0) == '.') return
-
-    var pluginPath = './' + path.join('plugins', plugin),
-        pluginModule = require(pluginPath)
-
-    botInstance.registerPlugin(pluginModule)
-  })
+  if (pluginName in config.plugins) {
+    console.log(chalk.gray(`Registered plugin ${pluginName}`))
+    plugin(bot, config.plugins[pluginName], client)
+  }
 }
 
-// Setup listeners
-if (fs.existsSync('listeners')) {
-  each(fs.readdirSync('listeners'), function(listener) {
-    if (listener.charAt(0) == '.') return
+client.addListener('message', (from, to, message) => {
+  if (to === config.botName) {
+    return // This is handled by the 'pm' listener
+  }
+  console.log(chalk.yellow(`${from} => ${to}: ${message}`))
 
-    var listenerPath = './' + path.join('listeners', listener),
-        listenerName = path.basename(listener, path.extname(listener)),
-        listenerModule = require(listenerPath)
+  // Message to the bot
+  if (message.search(config.botName) === 0) {
+    const commandRE = new RegExp(`^${config.botName}(?::|,) (.*)`)
+    const catchedCommand = message.match(commandRE)
 
-    if (listenerModule.register !== void 0) {
-      listenerModule.register(botInstance)
-    } else {
-      botInstance.addListener(listenerName, listenerModule)
+    if (!catchedCommand) {
+      return
     }
-  })
-}
 
-// There is no way I can let the previous comment here.
+    const plainCommand = catchedCommand[1]
+    const params = shellwords.split(plainCommand)
+    const commandName = params.shift()
+    const command = bot.commands[commandName]
+
+    if (!command) {
+      client.say(to, 'Unknown command, sucker. :]')
+      return
+    }
+
+    if (!('channel' in command.contexts)) {
+      client.say(to, 'Cannot do this here, sucker. :]')
+      return
+    }
+
+    try {
+      command.handler({client, from, to, message}, ...params)
+    } catch (e) {
+      client.say(to, 'Hmm, seems like I fucked up, again')
+      console.error(`[ERROR] [${commandName}] ${e}`)
+    }
+  }
+})
+
+client.addListener('pm', (from, message) => {
+  console.log(chalk.yellow.bold(`PM ${from}: ${message}`))
+})
+
+client.addListener('error', (error) => {
+  console.error(chalk.red(`[ERROR] ${util.inspect(error)}`))
+})
+
+
+console.log(chalk.gray('Go go go!'))

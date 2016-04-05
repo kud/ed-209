@@ -12,10 +12,7 @@
     "protection": true,
     "delay": 500
   },
-  "debug": false,
-  "api_keys": {
-    "imgur_client_id": "",
-    "imgur_client_secret": "",
-    "my_api_films": ""
-  }
+  "plugins": [
+    "conj": {}
+  ]
 }
