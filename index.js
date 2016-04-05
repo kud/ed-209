@@ -26,6 +26,32 @@ const bot = {
     }
   },
 
+  handleCommand(commandLine, envelope) {
+    const {client, to} = envelope
+    const args = shellwords.split(commandLine)
+    const commandName = args.shift()
+    const command = bot.commands[commandName]
+
+    if (!command) {
+      client.say(to, 'Unknown command, sucker. :]')
+      return false
+    }
+
+    if (!('channel' in command.contexts)) {
+      client.say(to, 'Cannot do this here, sucker. :]')
+      return false
+    }
+
+    try {
+      command.handler(envelope, ...args)
+      return true
+    } catch (e) {
+      client.say(to, 'Hmm, seems like I fucked up, again')
+      this.error(`[${commandName}] ${e}`)
+      return false
+    }
+  },
+
   info(message) {
     console.log(chalk.grey(`[INFO] ${message}`))
   },
@@ -85,26 +111,8 @@ client.addListener('message', (from, to, message) => {
       return
     }
 
-    const plainCommand = catchedCommand[1]
-    const args = shellwords.split(plainCommand)
-    const commandName = args.shift()
-    const command = bot.commands[commandName]
-
-    if (!command) {
-      client.say(to, 'Unknown command, sucker. :]')
-      return
-    }
-
-    if (!('channel' in command.contexts)) {
-      client.say(to, 'Cannot do this here, sucker. :]')
-      return
-    }
-
-    try {
-      return command.handler(envelope, ...args)
-    } catch (e) {
-      client.say(to, 'Hmm, seems like I fucked up, again')
-      bot.error(`[${commandName}] ${e}`)
+    if (bot.handleCommand(catchedCommand[1], envelope)) {
+      return // Skip filters if the command was handled
     }
   }
 
