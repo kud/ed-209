@@ -1,23 +1,22 @@
 {
   "name": "ed-209",
-  "dependencies": {
-    "cheerio": "0.19.0",
-    "irc": "0.4.0",
-    "lodash": "3.10.1",
-    "moment": "2.10.6",
-    "nodemon": "1.8.1",
-    "shellwords": "0.1.0"
-  },
   "scripts": {
     "start": "nodemon index.js"
   },
-  "readmeFilename": "readme.md",
+  "readmeFilename": "README.md",
   "description": "IRC Bot",
   "version": "0.0.0",
   "main": "index.js",
   "repository": "",
   "author": "Erwann Mest",
   "license": "BSD",
+  "dependencies": {
+    "cheerio": "~0.20.0",
+    "irc": "^0.5.0",
+    "lodash": "^4.8.2",
+    "nodemon": "^1.9.1",
+    "shellwords": "^0.1.0"
+  },
   "devDependencies": {
     "nodemon": "1.8.1",
     "forever": "0.15.1"
