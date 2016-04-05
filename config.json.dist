@@ -1,5 +1,5 @@
 {
-  "botName": "Bot name (nick)",
+  "nick": "bobot",
   "password": "NickServ password (remove to disable)",
   "channels": [
     "#ed-209-arena"

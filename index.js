@@ -26,7 +26,7 @@ const bot = {
 }
 
 // IRC Client
-const client = new irc.Client(config.server, config.botName, {
+const client = new irc.Client(config.server, config.nick, {
   channels: config.channels,
   floodProtection: config.flood.protection,
   floodProtectionDelay: config.flood.delay
@@ -43,14 +43,14 @@ for (const pluginName in plugins) {
 }
 
 client.addListener('message', (from, to, message) => {
-  if (to === config.botName) {
+  if (to === config.nick) {
     return // This is handled by the 'pm' listener
   }
   console.log(chalk.yellow(`${from} => ${to}: ${message}`))
 
   // Message to the bot
-  if (message.search(config.botName) === 0) {
-    const commandRE = new RegExp(`^${config.botName}(?::|,) (.*)`)
+  if (message.search(config.nick) === 0) {
+    const commandRE = new RegExp(`^${config.nick}(?::|,) (.*)`)
     const catchedCommand = message.match(commandRE)
 
     if (!catchedCommand) {
