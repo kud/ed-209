@@ -15,6 +15,7 @@
   "plugins": [
     "conj",
     "fakeimg",
-    "forkyou"
+    "forkyou",
+    "humanize"
   ]
 }

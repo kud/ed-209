@@ -12,9 +12,18 @@ import * as plugins from './lib/plugins'
 // The Bot
 const bot = {
   commands: {},
+  filters: {
+    channel: [],
+  },
 
   addCommand(command, handler, contexts = {channel: true}) {
     this.commands[command] = {handler, contexts}
+  },
+
+  addFilter(pattern, handler, contexts = {channel: true}) {
+    for (const context in contexts) {
+      this.filters[context].push({pattern, handler})
+    }
   },
 
   info(message) {
@@ -62,6 +71,9 @@ client.addListener('message', (from, to, message) => {
   if (to === config.nick) {
     return // This is handled by the 'pm' listener
   }
+  const envelope = {client, from, to, message}
+
+  // Log
   console.log(chalk.yellow(`${from} => ${to}: ${message}`))
 
   // Message to the bot
@@ -89,11 +101,18 @@ client.addListener('message', (from, to, message) => {
     }
 
     try {
-      const envelope = {client, from, to, message}
-      command.handler(envelope, ...args)
+      return command.handler(envelope, ...args)
     } catch (e) {
       client.say(to, 'Hmm, seems like I fucked up, again')
       bot.error(`[${commandName}] ${e}`)
+    }
+  }
+
+  // Filters
+  for (const filter of bot.filters.channel) {
+    if (message.match(filter.pattern) !== null) {
+      filter.handler(envelope, message)
+      break
     }
   }
 })
