@@ -13,8 +13,8 @@
     "delay": 500
   },
   "plugins": [
-    "conj": {},
-    "fakeimg": {},
-    "forkyou": {}
+    "conj",
+    "fakeimg",
+    "forkyou"
   ]
 }

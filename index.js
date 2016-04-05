@@ -7,13 +7,6 @@ import irc from 'irc'
 import shellwords from 'shellwords'
 import chalk from 'chalk'
 
-// Load configuration
-if (!fs.existsSync('config.json')) {
-  console.error(chalk.red('Wow, wow, wow! Please, have a `config.json` for fuck\'s sake!'))
-  process.exit(1)
-}
-const config = require('./config.json')
-
 import * as plugins from './plugins'
 
 // The Bot
@@ -22,8 +15,23 @@ const bot = {
 
   addCommand(command, handler, contexts = {channel: true}) {
     this.commands[command] = {handler, contexts}
-  }
+  },
+
+  info(message) {
+    console.log(chalk.grey(`[INFO] ${message}`))
+  },
+
+  error(message) {
+    console.log(chalk.red(`[ERROR] ${message}`))
+  },
 }
+
+// Load configuration
+if (!fs.existsSync('config.json')) {
+  bot.error('Wow, wow, wow! Please, have a `config.json` for fuck\'s sake!')
+  process.exit(1)
+}
+const config = require('./config.json')
 
 // IRC Client
 const client = new irc.Client(config.server, config.nick, {
@@ -33,13 +41,14 @@ const client = new irc.Client(config.server, config.nick, {
 })
 
 // Register activated plugins
-for (const pluginName in plugins) {
-  const plugin = plugins[pluginName]
+for (const plugin of config.plugins) {
+  const loadWithConfig = typeof plugin === 'object'
+  const pluginName = loadWithConfig ? plugin[0] : plugin
+  const config = loadWithConfig ? plugin[1] : {}
+  const register = plugins[pluginName]
 
-  if (pluginName in config.plugins) {
-    console.log(chalk.gray(`Registered plugin ${pluginName}`))
-    plugin(bot, config.plugins[pluginName], client)
-  }
+  bot.info(`Registered plugin ${pluginName}`)
+  register(bot, config, client)
 }
 
 client.addListener('message', (from, to, message) => {
@@ -77,7 +86,7 @@ client.addListener('message', (from, to, message) => {
       command.handler(envelope, ...args)
     } catch (e) {
       client.say(to, 'Hmm, seems like I fucked up, again')
-      console.error(`[ERROR] [${commandName}] ${e}`)
+      bot.error(`[${commandName}] ${e}`)
     }
   }
 })
@@ -88,13 +97,13 @@ client.addListener('pm', (from, message) => {
 
 client.addListener('join', (channel, nick) => {
   if (nick === config.nick) {
-   console.log(chalk.gray(`[INFO] Joining ${channel}`))
+    bot.info(`Joining ${channel}`)
   }
 })
 
 client.addListener('error', (error) => {
-  console.error(chalk.red(`[ERROR] ${util.inspect(error)}`))
+  bot.error(util.inspect(error))
 })
 
 
-console.log(chalk.gray('Go go go!'))
+bot.info(`Go go go!`)
