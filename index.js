@@ -16,6 +16,7 @@ if (!fs.existsSync('config.json')) {
   process.exit(1)
 }
 const config = require('./config.json')
+bot.config = config
 
 // IRC Client
 const client = new irc.Client(config.server, config.nick, {

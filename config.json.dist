@@ -17,6 +17,7 @@
     "conj",
     "fakeimg",
     "forkyou",
-    "humanize"
+    "humanize",
+    "stdin_reader"
   ]
 }
