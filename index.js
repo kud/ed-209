@@ -5,18 +5,13 @@ import irc from 'irc'
 import chalk from 'chalk'
 
 import Bot from './lib/bot'
-import * as plugins from './lib/plugins'
-
-// The Bot
-const bot = new Bot()
 
 // Load configuration
 if (!fs.existsSync('config.json')) {
-  bot.error('Wow, wow, wow! Please, have a `config.json` for fuck\'s sake!')
+  console.log(chalk.red('Wow, wow, wow! Please, have a `config.json` for fuck\'s sake!'))
   process.exit(1)
 }
 const config = require('./config.json')
-bot.config = config
 
 // IRC Client
 const client = new irc.Client(config.server, config.nick, {
@@ -32,52 +27,23 @@ const client = new irc.Client(config.server, config.nick, {
   encoding: "UTF-8"
 })
 
+// The Bot
+const bot = new Bot(client, config)
+
 // Register activated plugins
 for (const plugin of config.plugins) {
   const loadWithConfig = typeof plugin === 'object'
   const pluginName = loadWithConfig ? plugin[0] : plugin
   const config = loadWithConfig ? plugin[1] : {}
-  const register = plugins[pluginName]
 
-  if (!register) {
-    bot.error(`Missing plugin ${pluginName}`)
-    process.exit(1)
-  }
-
-  register(bot, config, client)
-  bot.info(`Registered plugin ${pluginName}`)
+  bot.register(pluginName, config)
 }
 
 client.addListener('message', (from, to, message) => {
   if (to === config.nick) {
     return // This is handled by the 'pm' listener
   }
-  const envelope = {client, from, to, message}
-
-  // Log
-  console.log(chalk.yellow(`${from} => ${to}: ${message}`))
-
-  // Message to the bot
-  if (message.search(config.nick) === 0) {
-    const commandRE = new RegExp(`^${config.nick}(?::|,) (.*)`)
-    const catchedCommand = message.match(commandRE)
-
-    if (!catchedCommand) {
-      return
-    }
-
-    if (bot.handleCommand(catchedCommand[1], envelope)) {
-      return // Skip filters if the command was handled
-    }
-  }
-
-  // Filters
-  for (const filter of bot.filters.channel) {
-    if (message.match(filter.pattern) !== null) {
-      filter.handler(envelope, message)
-      break
-    }
-  }
+  bot.listen({context: 'channel', from, to, message})
 })
 
 
@@ -89,13 +55,11 @@ if (config.password !== undefined) {
 }
 
 client.addListener('pm', (from, message) => {
-  console.log(chalk.yellow.bold(`PM ${from}: ${message}`))
+  bot.listen({context: 'pm', from, message})
 })
 
 client.addListener('join', (channel, nick) => {
-  if (nick === config.nick) {
-    bot.info(`Joining ${channel}`)
-  }
+  bot.listen({context: 'join', channel, nick})
 })
 
 client.addListener('error', (error) => {

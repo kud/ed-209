@@ -18,6 +18,7 @@
     "fakeimg",
     "forkyou",
     "humanize",
+    "logger",
     "stdin_reader"
   ]
 }
