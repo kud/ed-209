@@ -38,8 +38,13 @@ for (const plugin of config.plugins) {
   const config = loadWithConfig ? plugin[1] : {}
   const register = plugins[pluginName]
 
-  bot.info(`Registered plugin ${pluginName}`)
+  if (!register) {
+    bot.error(`Missing plugin ${pluginName}`)
+    process.exit(1)
+  }
+
   register(bot, config, client)
+  bot.info(`Registered plugin ${pluginName}`)
 }
 
 client.addListener('message', (from, to, message) => {
