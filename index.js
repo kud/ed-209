@@ -46,7 +46,6 @@ client.addListener('message', (from, to, message) => {
   bot.listen({context: 'channel', from, to, message})
 })
 
-
 if (config.password !== undefined) {
   client.addListener('registered', () => {
     bot.info('Registering')
