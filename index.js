@@ -31,12 +31,21 @@ const client = new irc.Client(config.server, config.nick, {
 const bot = new Bot(client, config)
 
 // Register activated plugins
+const failedPlugins = []
 for (const plugin of config.plugins) {
   const loadWithConfig = typeof plugin === 'object'
   const pluginName = loadWithConfig ? plugin[0] : plugin
   const config = loadWithConfig ? plugin[1] : {}
 
-  bot.register(pluginName, config)
+  const registered = bot.register(pluginName, config)
+
+  if (!registered) {
+    failedPlugins.push(pluginName)
+  }
+}
+if (failedPlugins.length) {
+  bot.error(`Failed to load some plugins: ${failedPlugins.join(', ')}`)
+  bot.error('Fix your fucking config ffs')
 }
 
 client.addListener('message', (from, to, message) => {
