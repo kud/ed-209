@@ -14,6 +14,9 @@
     "delay": 500
   },
   "plugins": [
+    ["invite", {
+      "joinMessage": "Hello motherfuckers!"
+    }],
     "memory",
     "caniuse",
     "alert",
