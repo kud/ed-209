@@ -48,10 +48,7 @@ if (failedPlugins.length) {
   bot.error('Fix your fucking config ffs')
 }
 
-client.addListener('message', (from, to, message) => {
-  if (to === config.nick) {
-    return // This is handled by the 'pm' listener
-  }
+client.addListener('message#', (from, to, message) => {
   bot.listen({context: 'channel', from, to, message})
 })
 
@@ -73,6 +70,5 @@ client.addListener('join', (channel, nick) => {
 client.addListener('error', (error) => {
   bot.error(error)
 })
-
 
 bot.info(`Go go go!`)
