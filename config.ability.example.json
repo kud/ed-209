@@ -1,0 +1,33 @@
+{
+  "//": "This is an example configuration that we use on ##ability@freenode",
+  "nick": "bobot",
+  "channels": [
+    "##ability",
+    "#ed-209-arena"
+  ],
+  "server": "irc.freenode.net",
+  "ssl": false,
+  "port": 6667,
+  "sasl": false,
+  "flood": {
+    "protection": true,
+    "delay": 500
+  },
+  "plugins": [
+    "memory",
+    "caniuse",
+    "alert",
+    "conj",
+    "fakeimg",
+    ["forkyou", {
+      "repoURL": "https://github.com/kud/ed-209"
+    }],
+    "list",
+    ["reactions", {
+      "metal": "\\m/",
+      "hardcore": ["\\m/", "HxC"]
+    }],
+    "logger",
+    "stdin_reader"
+  ]
+}
