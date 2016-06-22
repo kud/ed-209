@@ -17,6 +17,7 @@
     ["invite", {
       "joinMessage": "Hello motherfuckers!"
     }],
+    "leave",
     "memory",
     "caniuse",
     "alert",
