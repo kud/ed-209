@@ -1,6 +1,7 @@
 node_modules
 config.json
 memory.json
+.vimproject
 listeners-enabled/*
 plugins-enabled/*
 !listeners-enabled/.gitkeep
