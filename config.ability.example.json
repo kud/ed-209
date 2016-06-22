@@ -24,8 +24,16 @@
     }],
     "list",
     ["reactions", {
-      "metal": "\\m/",
-      "hardcore": ["\\m/", "HxC"]
+      "maxDelay": 5,
+      "patterns": {
+        "metal": "\\m/",
+        "hardcore": ["\\m/", "HxC"],
+        "babtou fragile": "http://img.scoop.it/IODNGK0ewLu0Js9UlIy0yzl72eJkfbmt4t8yenImKBVvK0kTmF0xjctABnaLJIm9",
+        "nul": ["nul nul nul", "oui, c'est nul :("],
+        "(?:lol|mdr|ahah|haha|rofl)": [":)", ":D", ":P"],
+        "(?:s(?:or)?ry|d[eé]sol[eé]|dsl|o[ou]ps|my bad)": "¯\\_(ツ)_/¯",
+        "(?:th(anks|x)|merci)\\s+{@}": "de rine"
+      }
     }],
     "logger",
     "stdin_reader"
