@@ -19,6 +19,6 @@
     "forkyou",
     "humanize",
     "logger",
-    "stdin_reader"
+    "stdin-reader"
   ]
 }

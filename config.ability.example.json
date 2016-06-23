@@ -40,6 +40,6 @@
       }
     }],
     "logger",
-    "stdin_reader"
+    "stdin-reader"
   ]
 }
