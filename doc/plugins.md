@@ -1,23 +1,38 @@
 # alert
 
-The alert plugins allows to notify all users of a channel with a given message.
+This plugin allows to notify all users of a channel with a given message.
+
+## Requirements and setup
+
+-   [memory](#memory) plugin
 
 ## Provided commands
 
--   `alert`
+-   `alert [--subscribe|--unsubscribe|message]`: Broadcast a message to all
+    subscribed users
 
 **Parameters**
 
 -   `bot`  
 
+# caniuse
+
+This plugin adds a `caniuse` command that can be used to query for support
+information using the [caniuse](http://caniuse.com) database.
+
+## Provided commands
+
+-   `caniuse [feature]`: Get support information for a web feature
+
+**Parameters**
+
+-   `bot`  
+-   `config`  
+
 # memory
 
 This plugin provides a simple persistence layer for the bot using a JSON
 file as the backend.
-
-See the [memory.Memory](memory.Memory) class documentation for details about the provided API.
-
-This API is available using the `memory` property of the `Bot` instance.
 
 ## Requirements and setup
 
@@ -30,11 +45,37 @@ database, just put `{}` in the file.
 -   <a name="memory-file-option"></a> `file [string]` (default:
     `"memory.json"`): Path to the file that is used to save the database.
 
+## Usage
+
+Enabling the `memory` plugin adds a `memory` property on the `Bot` instance
+with the following API:
+
+-   `set(key, value)`: Stores a given value to the specified key
+-   `get(key)`: Returns the value stored at the specified key
+-   `namespace(key)`: Returns an object with `set`/`key` and `commit` methods
+    bound to a given key in the store
+-   `commit()`: Saves changes to the JSON file
+
 **Parameters**
 
 -   `bot`  
 -   `config`  
 
-## Memory
+**Examples**
 
-Memory class
+_Basic usage_
+
+```javascript
+bot.set("my-key", "a-value")
+bot.get("my-key") // => "a-value"
+```
+
+_Using namespaces_
+
+```javascript
+const namespace = bot.namespace("myplugin")
+namespace.set("some-key", "a-value")
+namespace.commit()
+// Data file now has the following object:
+{"myplugin": {"some-key": "a-value"}}
+```
