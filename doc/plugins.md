@@ -15,6 +15,27 @@ This plugin allows to notify all users of a channel with a given message.
 
 -   `bot`  
 
+# blank
+
+This is a blank plugin used as a template for your own plugin.
+
+## Requirements and setup
+
+List other required plugins and setup instructions here.
+
+## Configuration options
+
+Describe the plugin configuration options.
+
+## Provided commands
+
+List provided commands, their options and their usage.
+
+**Parameters**
+
+-   `bot`  
+-   `config`  
+
 # caniuse
 
 This plugin adds a `caniuse` command that can be used to query for support
