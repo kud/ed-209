@@ -4,7 +4,9 @@
     "start": "nodemon index.js",
     "doc": "npm run doc:core && npm run doc:plugins",
     "doc:core": "documentation build --format md index.js > doc/core.md",
-    "doc:plugins": "documentation build --format md lib/plugins/*.js > doc/plugins.md"
+    "doc:plugins": "documentation build --format md lib/plugins/*.js > doc/plugins.md",
+    "doc:core:watch": "documentation serve --watch index.js",
+    "doc:plugins:watch": "documentation serve --watch lib/plugins/*.js"
   },
   "readmeFilename": "README.md",
   "description": "IRC Bot",
