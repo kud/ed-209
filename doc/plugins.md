@@ -183,3 +183,21 @@ All these parameters can be found in the apps console (<https://apps.twitter.com
 
 -   `bot`  
 -   `config`  
+
+# url
+
+The url plugin plugins automatically fetches website titles and displays
+them in the channel.
+
+## Requirements and setup
+
+-   `npm install node-fetch cheerio`
+
+## Configuration options
+
+-   `blacklist`: a list of URL patterns to exclude from expansion
+
+**Parameters**
+
+-   `bot`  
+-   `config`  
