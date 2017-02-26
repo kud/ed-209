@@ -58,6 +58,46 @@ This plugin makes the bot echo back everything it sees. Yes, it is quite annoyin
 
 -   `bot`  
 
+# imdb
+
+The imdb plugins automatically expands imdb URLs with informations
+from `myapifilms.com`
+
+## Requirements and setup
+
+You need a tokken from <http://www.myapifilms.com/token.do>
+
+## Configuration options
+
+-   `myApiFilms`
+
+**Parameters**
+
+-   `bot`  
+-   `config`  
+
+# imgur
+
+The imgur plugins automatically expands imgur URLs with informations
+from imgur (title, NSFW tag, ...).
+
+## Requirements and setup
+
+You need to create an application at <https://api.imgur.com/oauth2/addclient>
+to retrieve your credentials (see below).
+
+## Configuration options
+
+-   `clientId`:
+
+All these parameters can be found in the apps console
+(<https://imgur.com/account/settings/apps>)
+
+**Parameters**
+
+-   `bot`  
+-   `config`  
+
 # invite
 
 This plugin allows the bot to join channels it is invited on.
