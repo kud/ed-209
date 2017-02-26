@@ -25,12 +25,13 @@ $ git clone https://github.com/putaindecode/ed-209
 #### Run the installation
 
 ```console
-$ make install
+$ npm install
 ```
 
 #### Edit the config file
 
 ```console
+$ cp config.example.json
 $ $EDITOR config.json
 ```
 
@@ -39,18 +40,18 @@ $ $EDITOR config.json
 Start the bot:
 
 ```console
-$ make start
+$ npm start
 ```
 
 ## Adding features
 
-Please [read the source](index.js).
+Please [read the source](index.js) and the [documentation](doc/).
 
 ## Contributing
 
 I'd be happy if you send lots of PRs to me!
 
-Just name your branch descriptively (like feat.*feature-name*), and click the
+Just name your branch descriptively (like plugin.*plugin-name*), and click the
 big _Pull Request_ button!
 
 

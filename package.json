@@ -1,7 +1,7 @@
 {
   "name": "ed-209",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "babel-node index.js",
     "doc": "npm run doc:core && npm run doc:plugins",
     "doc:core": "documentation build --format md index.js > doc/core.md",
     "doc:plugins": "documentation build --format md lib/plugins/*.js > doc/plugins.md",

@@ -19,6 +19,7 @@ const client = new irc.Client(config.server, config.nick, {
   floodProtection: config.flood.protection,
   floodProtectionDelay: config.flood.delay,
   secure: config.ssl,
+  selfSigned: config.selfSigned,
   sasl: config.sasl,
   userName: config.nick,
   password: config.password,
